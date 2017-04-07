@@ -1,0 +1,25 @@
+{% extends 'home.html' %}
+
+{% block title %}
+    <hr>
+        <h2>Firma eintragen !</h2>
+    <hr>
+{% endblock %}
+
+{% block body %}
+    {% include 'nav/googleMarker.html' %}
+<div class="container thumbnail firmaEintrag">
+
+    <br><br>
+    <hr>
+        <p>Formular ausfüllen.</p>
+    <hr>
+
+     <form action="firmaForm" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Senden" />
+     </form>
+</div>
+
+{% endblock %}
