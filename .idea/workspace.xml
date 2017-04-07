@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eddae5d-7357-4fd8-a6b6-b1e49118cd91" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/forms.py" afterPath="$PROJECT_DIR$/servicePr/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/templates/branchen/umzug.html" afterPath="$PROJECT_DIR$/servicePr/templates/branchen/umzug.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/templates/nav/firmaForm.html" afterPath="$PROJECT_DIR$/servicePr/templates/nav/firmaForm.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -472,7 +468,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491525006301</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="001 - Firmeneintrag">
+      <created>1491602364633</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1491602364633</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -522,7 +525,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="New -  Footer + MEDIA_ROOT + Captcha" />
-    <option name="LAST_COMMIT_MESSAGE" value="New -  Footer + MEDIA_ROOT + Captcha" />
+    <MESSAGE value="001 - Firmeneintrag" />
+    <option name="LAST_COMMIT_MESSAGE" value="001 - Firmeneintrag" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
