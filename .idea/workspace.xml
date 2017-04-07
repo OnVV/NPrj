@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eddae5d-7357-4fd8-a6b6-b1e49118cd91" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/Catering.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NPrj/settings.py" afterPath="$PROJECT_DIR$/NPrj/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NPrj/urls.py" afterPath="$PROJECT_DIR$/NPrj/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/admin.py" afterPath="$PROJECT_DIR$/servicePr/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/models.py" afterPath="$PROJECT_DIR$/servicePr/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/static/style_dl1.css" afterPath="$PROJECT_DIR$/servicePr/static/style_dl1.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/templates/branchen/umzug.html" afterPath="$PROJECT_DIR$/servicePr/templates/branchen/umzug.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/templates/home.html" afterPath="$PROJECT_DIR$/servicePr/templates/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/templates/nav/navigation.html" afterPath="$PROJECT_DIR$/servicePr/templates/nav/navigation.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/urls.py" afterPath="$PROJECT_DIR$/servicePr/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/servicePr/views.py" afterPath="$PROJECT_DIR$/servicePr/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/style_dl1.css" afterPath="$PROJECT_DIR$/static/style_dl1.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -94,7 +81,7 @@
         <entry file="file://$PROJECT_DIR$/servicePr/forms.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+              <caret line="8" column="54" lean-forward="true" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -430,6 +417,14 @@
       <option name="presentableId" value="Default" />
       <updated>1490659056798</updated>
     </task>
+    <task id="LOCAL-00001" summary="New -  Footer + MEDIA_ROOT + Captcha">
+      <created>1491524808954</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1491524808954</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -476,6 +471,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="New -  Footer + MEDIA_ROOT + Captcha" />
+    <option name="LAST_COMMIT_MESSAGE" value="New -  Footer + MEDIA_ROOT + Captcha" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -884,7 +883,7 @@
     <entry file="file://$PROJECT_DIR$/servicePr/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <caret line="8" column="54" lean-forward="true" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
