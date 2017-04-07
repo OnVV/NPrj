@@ -6,7 +6,7 @@ class Umzug(models.Model):
     firm_adress = models.CharField(max_length=200)
     firm_plz = models.CharField(max_length=200)
     firm_homepage = models.CharField(max_length=200)
-    firm_logo = models.ImageField(blank=True)
+    firm_logo = models.ImageField(upload_to='treasure_images')
     updated = models.DateTimeField(auto_now=True, auto_now_add=False, blank=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True, blank=True)
 
@@ -120,3 +120,12 @@ class Schreiner(models.Model):
 
     def __str__(self):
         return self.firm_name + ' - ' + self.firm_adress
+
+class Firmeneintrag(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    firma = models.CharField(max_length=200, null=True)
+    eMail = models.CharField(max_length=200, null=True)
+    branche = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.name + ' - ' + self.firma

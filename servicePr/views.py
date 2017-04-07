@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from servicePr.models import Umzug, Reinigung, Maler, Catering, Schreiner, Baufirma, Immobilien
 from servicePr.models import Sanitaer, Gartenbau, Architekt
+from .forms import EintragFormular
 import googlemaps
 
 def latLng(branche):
@@ -66,6 +67,7 @@ architektGeoCode = latLng(architekt_firma)
 print(architekt_firma)
 
 def index(request):
+
 
     TitleText = 'Sie suchen einen Fachmann? Bei uns finden Sie professionelle Dienstleister aus Ihrer Umgebung.\
             Sparen Sie sich die lange suche nach Experten. Bei uns erreichen Sie mit einer Anfrage mehrere Anbieter.\
@@ -196,6 +198,20 @@ def catering(request):
         }
     return render(request, 'branchen/catering.html', context)
 
+
+# ****FORM****
+def firmaForm(request):
+    form = EintragFormular(request.POST)
+    if form.is_valid():
+        form.save(commit=True)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'nav/firmaForm.html', context)
+
+# ***COUNTER****
 def counter(branche):
     index = 0
     for branche in branche:

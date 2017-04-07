@@ -1,8 +1,9 @@
 {% extends 'home.html' %}
 
 {% block title %}
+<hr>
     <h2>Umzug</h2>
-
+<hr>
    {% if anz == 0 %}
         <div class="container">
             <br><br>
@@ -22,6 +23,7 @@
          <div class="col-xs-6 col-md-3" >
             <div class="thumbnail">
                 <div class="thumbnail" style="width:100%; height:100px;">
+
                     <img src='{{ firma.firm_logo.url }}' class="img-responsive" alt="Responsive image" style="max-height:100%;" />
                 </div>
                 <div class="thumbnail">
