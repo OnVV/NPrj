@@ -7,3 +7,9 @@ class EintragFormular(forms.ModelForm):
     class Meta:
         model = Firmeneintrag
         fields = ['name', 'firma', 'eMail', 'branche']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'firma': forms.TextInput(attrs={'class': 'form-control'}),
+            'eMail': forms.TextInput(attrs={'class': 'form-control'}),
+            'branche': forms.TextInput(attrs={'class': 'form-control'}),
+        }

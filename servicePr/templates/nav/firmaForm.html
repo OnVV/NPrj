@@ -8,18 +8,18 @@
 
 {% block body %}
     {% include 'nav/googleMarker.html' %}
-<div class="container thumbnail firmaEintrag">
+<div class="container">
 
     <br><br>
     <hr>
         <p>Formular ausfüllen.</p>
     <hr>
 
-     <form action="firmaForm" method="post">
+    <form action="firmaForm" method="post" class="thumbnail" style="max-width:350px;">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Senden" />
-     </form>
+    </form>
 </div>
 
 {% endblock %}

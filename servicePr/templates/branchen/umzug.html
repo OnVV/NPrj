@@ -1,8 +1,9 @@
 {% extends 'home.html' %}
+{% load staticfiles %}
 
 {% block title %}
 <hr>
-    <h2>Umzug</h2>
+    <h2><img src="{% static 'img/Umzug.png' %}" class="search-icon"> Umzug</h2>
 <hr>
    {% if anz == 0 %}
         <div class="container">
