@@ -1,13 +1,14 @@
 {% load staticfiles %}
 <div class="container">
+
         <br><br>
         <ul style="float:right; list-style:none;">
             <a href="#"><li  style="color:white" >Kontakt</li></a>
             <a href="#"><li  style="color:white" >about us</li></a>
             <br><br>
             <a href="{% url 'firmaForm' %}s"><li><button class="button">Firma eintragen</button></li></a>
-
         </ul>
+
         <ul style="float:right; color:white; list-style:none; margin-right:30px;">
             <a href="{% url 'umzug' %}"><li style="color:white" >Umzug</li></a>
             <a href="{% url 'architekt' %}"> <li  style="color:white" >Architekt</li></a>
@@ -20,16 +21,24 @@
             <a href="{% url 'sanitaer' %}"><li  style="color:white" >Sanitär</li></a>
             <a href="{% url 'schreiner' %}"><li  style="color:white" >Schreiner</li></a>
         </ul>
-
+        <div class="container" style="float:left; margin-top:-200px;">
+            <p style="color:black">Service Provider GmbH</p>
+            <p style="color:white">Teststrasse 55</p>
+            <p style="color:white">8000 Zürich</p>
+            <p style="color:white">Tel: 0041 00 00 00</p>
+            <p style="color:white">Mail: service@provider.com</p>
+        </div>
         <div  class="container">
             <div style="max-width:350px; margin-right:auto; margin-left:auto;">
-                    <p style="color:white" >Geben Sie ihre Postleitzahl ein.</p>
-                <div class="nav navbar-nav hidden-xs">
+                    <p class="hidden-xs" style="color:white" >Geben Sie ihre Postleitzahl ein.</p>
+                <div class="nav navbar-nav hidden-xs"  style="margin-top:-150px;">
 
                     <input type="text" placeholder="8000" style="height:30px;">
                     <button type="button"  class="button" style="float:right; background-color:black; color:white; height:30px; border:none;">
                         Suchen
                     </button>
+                    <br><br><br>
+                    <p style="color:white">Suchen Sie Firmen in Ihrer Region.<br> Erhalten Sie unverbindliche Offerten.</p>
                 </div>
             </div>
         </div>
