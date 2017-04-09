@@ -2,47 +2,48 @@
 <div class="thumbnail" id="bimg">
     <div  class="container">
         <div style="max-width:450px; margin-top:150px; margin-right:auto; margin-left:auto;">
+                <form action="suche" method="post">
+                    <select class="form-control">
+                        <div class="nav navbar-nav hidden-xs">
+                            <option value="Umzug">
+                                <a href="{% url 'umzug' %}">Umzug/Transport</a>
+                            </option>
 
-        <select class="form-control">
-            <div class="nav navbar-nav hidden-xs">
-                <option value="Umzug">
-                    Umzug/Transport <!--<img src="{% static 'img/Umzug.png' %}" class="search-icon">-->
-                </option>
+                            <option value="Reinigung">
+                                Reinigung
+                            </option>
 
-                <option value="Reinigung">
-                    Reinigung <!--<img src="{% static 'img/Umzug.png' %}" class="search-icon">-->
-                </option>
+                            <option value="Maler">
+                                Maler
+                            </option>
 
-                <option value="Maler">
-                    Maler <!--<img src="{% static 'img/Umzug.png' %}" class="search-icon">-->
-                </option>
+                            <option value="Catering">
+                                Catering
+                            </option>
 
-                <option value="Catering">
-                    Catering <!--<img src="{% static 'img/Umzug.png' %}" class="search-icon">-->
-                </option>
+                           <option value="Treuhand">
+                                Treuhand
+                            </option>
 
-               <option value="Treuhand">
-                    Treuhand <!--<img src="{% static 'img/Umzug.png' %}" class="search-icon">-->
-                </option>
+                            <option value="Buchhaltung">
+                                Buchhaltung
+                            </option>
 
-                <option value="Buchhaltung">
-                    Buchhaltung <!--<img src="{% static 'img/Umzug.png' %}" class="search-icon">-->
-                </option>
+                            <option value="Baufirma">
+                                Baufirma
+                            </option>
 
-                <option value="Baufirma">
-                    Baufirma <!--<img src="{% static 'img/Umzug.png' %}" class="search-icon">-->
-                </option>
+                            <option value="Immobilien">
+                                Immobilien
+                            </option>
+                        </div>
+                    </select>
 
-                <option value="Immobilien">
-                    Immobilien <!--<img src="{% static 'img/Umzug.png' %}" class="search-icon">-->
-                </option>
-        </select>
+                        <input type="text" class="form-control" placeholder="8000" style="height:50px;">
+                        <button type="submit" class="form-control" class="button" style="background-color:#2F4F4F; color:white; height:50px; border:none;">Suchen</button>
+                </form>
 
-            <input type="text" class="form-control" placeholder="8000" style="height:50px;">
-            <button type="button" class="form-control" class="button" style="background-color:#2F4F4F; color:white; height:50px; border:none;">Suchen</button>
-                  </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

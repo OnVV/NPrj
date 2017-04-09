@@ -14,65 +14,54 @@ def latLng(branche):
         lng.append(adressen[0]['geometry']['location']['lng'])
     return (lat, lng)
 
+geocode = dict()
+firma = dict()
+
 #Umzug
-global umzug_firma
-umzug_firma = Umzug.objects.all()
-umzugGeoCode = latLng(umzug_firma)
-print(umzug_firma)
-print(umzugGeoCode)
+firma['umzug'] = Umzug.objects.all()
+geocode['umzug'] = latLng(firma['umzug'])
 
 #Reinigung
-reinigung_firma = Reinigung.objects.all()
-reinigungGeoCode = latLng(reinigung_firma)
-print(reinigung_firma)
+firma['reinigung'] = Reinigung.objects.all()
+geocode['reinigung'] = latLng(firma['reinigung'])
 
 #Maler
-maler_firma = Maler.objects.all()
-malerGeoCode = latLng(maler_firma)
-print(maler_firma)
+firma['maler'] = Maler.objects.all()
+geocode['maler']= latLng(firma['maler'])
 
 #Catering
-catering_firma = Catering.objects.all()
-cateringGeoCode = latLng(catering_firma)
-print(catering_firma)
+firma['catering'] = Catering.objects.all()
+geocode['catering'] = latLng(firma['catering'])
 
 #Immobilien
-immobilien_firma = Immobilien.objects.all()
-immobilienGeoCode = latLng(immobilien_firma)
-print(immobilien_firma)
+firma['immobilien'] = Immobilien.objects.all()
+geocode['immobilien'] = latLng(firma['immobilien'])
 
 #Schreiner
-schreiner_firma = Schreiner.objects.all()
-schreinerGeoCode = latLng(schreiner_firma)
-print(schreiner_firma)
+firma['schreiner'] = Schreiner.objects.all()
+geocode['schreiner'] = latLng(firma['schreiner'])
 
 #Sanitär
-sanitaer_firma = Sanitaer.objects.all()
-sanitaerGeoCode = latLng(sanitaer_firma)
-print(sanitaer_firma)
+firma['sanitaer'] = Sanitaer.objects.all()
+geocode['sanitaer'] = latLng(firma['sanitaer'])
 
 #Gartenbau
-gartenbau_firma = Gartenbau.objects.all()
-gartenbauGeoCode = latLng(gartenbau_firma)
-print(gartenbau_firma)
+firma['gartenbau'] = Gartenbau.objects.all()
+geocode['gartenbau'] = latLng(firma['gartenbau'])
 
 #Baufirma
-baufirma_firma = Baufirma.objects.all()
-baufirmaGeoCode = latLng(baufirma_firma)
-print(baufirma_firma)
+firma['baufirma'] = Baufirma.objects.all()
+geocode['baufirma'] = latLng(firma['baufirma'])
 
 #Architekt
-architekt_firma = Architekt.objects.all()
-architektGeoCode = latLng(architekt_firma)
-print(architekt_firma)
+firma['architekt'] = Architekt.objects.all()
+geocode['architekt'] = latLng(firma['architekt'])
 
 def index(request):
-
-
+    print(request)
     TitleText = 'Sie suchen einen Fachmann? Bei uns finden Sie professionelle Dienstleister aus Ihrer Umgebung.\
             Sparen Sie sich die lange suche nach Experten. Bei uns erreichen Sie mit einer Anfrage mehrere Anbieter.\
-            Sie entscheiden an welche Anbieter die Anfrage gehen soll.\
-            und verlangen Sie unverbindlich eine Offerte'
+            Sie entscheiden an welche Anbieter die Anfrage gehen soll.'
 
     context = {
         'TitleText': TitleText,
@@ -81,122 +70,129 @@ def index(request):
     return render(request, 'home.html', context)
 
 def schreiner(request):
-    lat, lng = schreinerGeoCode
-    anz = counter(schreiner_firma)
+    
+    lat, lng = geocode['schreiner']
+    anz = counter(firma['schreiner'])
 
     context = {
-        'firma': schreiner_firma,
+        'firma': firma['schreiner'],
         'lat': lat,
         'lng': lng,
         'anz': anz,
                 }
-    return render(request, 'branchen/schreiner.html', context)
+    return render(request, 'branchen/show.html', context)
 
 def sanitaer(request):
-    lat, lng = sanitaerGeoCode
-    anz = counter(sanitaer_firma)
+    lat, lng = geocode['sanitaer']
+    anz = counter(firma['sanitaer'])
+
     context = {
-        'firma': sanitaer_firma,
+        'firma': firma['sanitaer'],
         'lat': lat,
         'lng': lng,
         'anz': anz,
                 }
-    return render(request, 'branchen/sanitaer.html', context)
+    return render(request, 'branchen/show.html', context)
 
 def immobilien(request):
-    lat, lng = immobilienGeoCode
-    anz = counter(immobilien_firma)
+    lat, lng = geocode['immobilien']
+    anz = counter(firma['immobilien'])
+
     context = {
-        'firma': immobilien_firma,
+        'firma': firma['immobilien'],
         'lat': lat,
         'lng': lng,
         'anz': anz,
                 }
-    return render(request, 'branchen/immobilien.html', context)
+    return render(request, 'branchen/show.html', context)
 
 def gartenbau(request):
-    lat, lng = gartenbauGeoCode
-    anz = counter(gartenbau_firma)
+    lat, lng = geocode['gartenbau']
+    anz = counter(firma['gartenbau'])
+
     context = {
-        'firma': gartenbau_firma,
+        'firma': firma['gartenbau'],
         'lat': lat,
         'lng': lng,
         'anz': anz,
                 }
-    return render(request, 'branchen/gartenbau.html', context)
+    return render(request, 'branchen/show.html', context)
 
 def baufirma(request):
-    lat, lng = baufirmaGeoCode
-    anz = counter(baufirma_firma)
+    lat, lng = geocode['baufirma']
+    anz = counter(firma['baufirma'])
+
     context = {
-        'firma': baufirma_firma,
+        'firma': firma['baufirma'],
         'lat': lat,
         'lng': lng,
         'anz': anz,
                 }
-    return render(request, 'branchen/baufirma.html', context)
+    return render(request, 'branchen/show.html', context)
 
 def architekt(request):
-    lat, lng = architektGeoCode
-    anz = counter(architekt_firma)
+    lat, lng = geocode['architekt']
+    anz = counter(firma['architekt'])
+
     context = {
-        'firma': architekt_firma,
+        'firma': firma['architekt'],
         'lat': lat,
         'lng': lng,
         'anz': anz,
                 }
-    return render(request, 'branchen/architekt.html', context)
+    return render(request, 'branchen/show.html', context)
 
 
 def umzug(request):
-    title = "Umzugsfirmen"
-    lat, lng = umzugGeoCode
-    anz = counter(umzug_firma)
-    print(title)
+
+    lat, lng = geocode['umzug']
+    anz = counter(firma['umzug'])
+
     context = {
-        'title': title,
-        'firma': umzug_firma,
+        'firma': firma['umzug'],
         'lat': lat,
         'lng': lng,
         'anz': anz,
                 }
-    return render(request, 'branchen/umzug.html', context)
+
+    return render(request, 'branchen/show.html', context)
 
 def reinigung(request):
-    lat, lng = reinigungGeoCode
-    anz = counter(reinigung_firma)
+    lat, lng = geocode['reinigung']
+    anz = counter(firma['reinigung'])
+
     context = {
-           'firma': reinigung_firma,
+            'firma': firma['reinigung'],
            'lat': lat,
            'lng': lng,
            'anz': anz,
     }
-    return render(request, 'branchen/reinigung.html', context)
+    return render(request, 'branchen/show.html', context)
 
 def maler(request):
-    lat, lng = malerGeoCode
-    anz = counter(maler_firma)
+    lat, lng = geocode['maler']
+    anz = counter(firma['maler'])
+
     context = {
-        'firma': maler_firma,
+        'firma': firma['maler'],
         'lat': lat,
         'lng': lng,
         'anz': anz,
     }
 
-    return render(request, 'branchen/maler.html', context)
+    return render(request, 'branchen/show.html', context)
 
 def catering(request):
-
-    lat, lng = cateringGeoCode
-    anz = counter(catering_firma)
+    lat, lng = geocode['catering']
+    anz = counter(firma['catering'])
 
     context = {
-         'firma': catering_firma,
+        'firma': firma['catering'],
          'lat': lat,
          'lng': lng,
          'anz': anz,
         }
-    return render(request, 'branchen/catering.html', context)
+    return render(request, 'branchen/show.html', context)
 
 
 # ****FORM****
@@ -210,6 +206,10 @@ def firmaForm(request):
     }
 
     return render(request, 'nav/firmaForm.html', context)
+
+# ****Search****
+def suche(request):
+    return render(request, 'nav/suche.html', context)
 
 # ***COUNTER****
 def counter(branche):

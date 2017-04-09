@@ -11,7 +11,7 @@
     height:300px;
     width:100%;
 }
-.footerfont{
+#footerfont{
     float:right;
     font-color:white;
     background-color:grey;
@@ -36,6 +36,7 @@
     color:black;
     text-decoration:none;
     text-align:center;
+    background-color:
 }
 
 .nav_icons_deco:hover{
