@@ -57,24 +57,58 @@ geocode['baufirma'] = latLng(firma['baufirma'])
 firma['architekt'] = Architekt.objects.all()
 geocode['architekt'] = latLng(firma['architekt'])
 
+# key = 'umzug'
+# if key in firma:
+#     print(firma.keys())
+#     print('+++++++++++++++++++++++++++++++++++++')
+#
+#     print(firma.values())
+#
+#     print('+++++++++++++++++++++++++++++++++++++')
+#     value = '8050'
+#     plz = Umzug.objects.filter(firm_plz__contains=value)
+#     print(plz)
+#     for firma in firma:
+#         print(firma)
+
 def index(request):
-    print(request)
-    TitleText = 'Sie suchen einen Fachmann? Bei uns finden Sie professionelle Dienstleister aus Ihrer Umgebung.\
-            Sparen Sie sich die lange suche nach Experten. Bei uns erreichen Sie mit einer Anfrage mehrere Anbieter.\
-            Sie entscheiden an welche Anbieter die Anfrage gehen soll.'
+
+    s = request.POST.get("select")
+    q = request.POST.get("query")
+
+    print(s)
+    print(q)
+
+    TitleText = 'Sie suchen einen Fachmann?Sie finden hier professionelle Dienstleister aus Ihrer Umgebung.\
+                Sparen Sie sich die lange suche nach Experten. Bei uns erreichen Sie mit einer Anfrage mehrere Anbieter.\
+                Sie entscheiden an welche Anbieter die Anfrage gehen soll.'
 
     context = {
         'TitleText': TitleText,
     }
+    for f in firma:
+        if f == s:
+            lat, lng = geocode[f]
+            anz = counter(firma[f])
+
+            context = {
+                'firma': firma[f],
+                'lat': lat,
+                'lng': lng,
+                'anz': anz,
+            }
+
+            return render(request, 'branchen/show.html', context)
 
     return render(request, 'home.html', context)
 
 def schreiner(request):
-    
+
     lat, lng = geocode['schreiner']
     anz = counter(firma['schreiner'])
 
     context = {
+        'title': 'Schreiner',
         'firma': firma['schreiner'],
         'lat': lat,
         'lng': lng,
@@ -87,6 +121,7 @@ def sanitaer(request):
     anz = counter(firma['sanitaer'])
 
     context = {
+        'title': 'Sanitär',
         'firma': firma['sanitaer'],
         'lat': lat,
         'lng': lng,
@@ -99,6 +134,7 @@ def immobilien(request):
     anz = counter(firma['immobilien'])
 
     context = {
+        'title': 'Immobilien',
         'firma': firma['immobilien'],
         'lat': lat,
         'lng': lng,
@@ -111,6 +147,7 @@ def gartenbau(request):
     anz = counter(firma['gartenbau'])
 
     context = {
+        'title': 'Gartenbau',
         'firma': firma['gartenbau'],
         'lat': lat,
         'lng': lng,
@@ -123,6 +160,7 @@ def baufirma(request):
     anz = counter(firma['baufirma'])
 
     context = {
+        'title': 'Baufirma',
         'firma': firma['baufirma'],
         'lat': lat,
         'lng': lng,
@@ -135,6 +173,7 @@ def architekt(request):
     anz = counter(firma['architekt'])
 
     context = {
+        'title': 'Architekt',
         'firma': firma['architekt'],
         'lat': lat,
         'lng': lng,
@@ -149,6 +188,7 @@ def umzug(request):
     anz = counter(firma['umzug'])
 
     context = {
+        'title': 'Umzug',
         'firma': firma['umzug'],
         'lat': lat,
         'lng': lng,
@@ -162,6 +202,7 @@ def reinigung(request):
     anz = counter(firma['reinigung'])
 
     context = {
+        'title': 'Reinigung',
             'firma': firma['reinigung'],
            'lat': lat,
            'lng': lng,
@@ -174,6 +215,7 @@ def maler(request):
     anz = counter(firma['maler'])
 
     context = {
+        'title': 'Maler',
         'firma': firma['maler'],
         'lat': lat,
         'lng': lng,
@@ -187,6 +229,7 @@ def catering(request):
     anz = counter(firma['catering'])
 
     context = {
+        'title': 'Catering',
         'firma': firma['catering'],
          'lat': lat,
          'lng': lng,
@@ -209,7 +252,36 @@ def firmaForm(request):
 
 # ****Search****
 def suche(request):
+
+    form = Suche(request.POST)
+    if form.is_valid():
+        form.save(commit=True)
+
+    context = {
+        'form': form
+    }
+
     return render(request, 'nav/suche.html', context)
+
+def search(request):
+    s = request.POST.get("select")
+    q = request.POST.get("query")
+
+    print(s)
+    print(q)
+
+    for f in firma:
+        if f == s:
+            lat, lng = geocode[f]
+            anz = counter(firma[f])
+
+            context = {
+                'firma': firma[f],
+                'lat': lat,
+                'lng': lng,
+                'anz': anz,
+            }
+            return render(request, 'branchen/show.html', context)
 
 # ***COUNTER****
 def counter(branche):

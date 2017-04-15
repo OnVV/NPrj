@@ -11,7 +11,7 @@ class Umzug(models.Model):
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True, blank=True)
 
     def __str__(self):
-        return self.firm_name + ' - ' + self.firm_adress
+        return self.firm_name + ' - ' + self.firm_adress + ' - ' + self.firm_plz
 
 class Reinigung(models.Model):
     firm_name = models.CharField(max_length=200, null=True)
@@ -129,3 +129,11 @@ class Firmeneintrag(models.Model):
 
     def __str__(self):
         return self.name + ' - ' + self.firma
+
+class Suche(models.Model):
+    suche = models.CharField(max_length=200, null=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.suche

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from servicePr.models import Umzug, Architekt, Baufirma, Catering, Gartenbau
+from servicePr.models import Umzug, Architekt, Baufirma, Catering, Gartenbau, Suche
 from servicePr.models import Immobilien, Maler, Reinigung, Sanitaer, Schreiner, Firmeneintrag
 
 # Register your models here.
@@ -14,3 +14,4 @@ admin.site.register(Reinigung)
 admin.site.register(Sanitaer)
 admin.site.register(Schreiner)
 admin.site.register(Firmeneintrag)
+admin.site.register(Suche)
