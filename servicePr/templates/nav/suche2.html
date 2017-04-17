@@ -1,47 +1,9 @@
 {% load staticfiles %}
     <div  class="container">
         <div style="max-width:450px;  margin-right:auto; margin-left:auto;">
-
             <form method="POST" action="">{% csrf_token %}
-                    <select class="form-control" name="select">
-                        <div class="nav navbar-nav hidden-xs">
-                            <option value="umzug">
-                                Umzug
-                            </option>
-
-                            <option value="reinigung">
-                                Reinigung
-                            </option>
-
-                            <option value="maler">
-                                Maler
-                            </option>
-
-                            <option value="catering">
-                                Catering
-                            </option>
-
-                           <option value="treuhand">
-                                Treuhand
-                            </option>
-
-                            <option value="buchhaltung">
-                                Buchhaltung
-                            </option>
-
-                            <option value="baufirma">
-                                Baufirma
-                            </option>
-
-                            <option value="immobilien">
-                                Immobilien
-                            </option>
-                        </div>
-                    </select>
-
-                        <input type="number" class="form-control" name="query" placeholder="8000" style="height:50px; float:right;">
-                        <button type="submit" class="form-control" class="button" style="background-color:#2F4F4F; color:white; height:50px; border:none; float:right;">Suchen</button>
+                <input type="number" class="form-control" name="query" placeholder="8000" style="height:50px; float:right;">
+                <button type="submit" class="form-control" class="button" style="background-color:#2F4F4F; color:white; height:50px; border:none; float:right;">Suchen</button>
             </form>
-
         </div>
     </div>
