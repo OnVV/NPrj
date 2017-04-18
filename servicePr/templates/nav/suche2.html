@@ -1,8 +1,9 @@
 {% load staticfiles %}
     <div  class="container">
         <div style="max-width:450px;  margin-right:auto; margin-left:auto;">
-            <form method="POST" action="">{% csrf_token %}
+            <form method="POST" action="{% url 'filter' %}">{% csrf_token %}
                 <input type="number" class="form-control" name="query" placeholder="8000" style="height:50px; float:right;">
+                <input type="hidden" value="{{ name }}" name="select">
                 <button type="submit" class="form-control" class="button" style="background-color:#2F4F4F; color:white; height:50px; border:none; float:right;">Suchen</button>
             </form>
         </div>

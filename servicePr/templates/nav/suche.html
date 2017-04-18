@@ -2,9 +2,12 @@
 <div class="thumbnail" id="bimg">
     <div  class="container">
         <div style="max-width:450px; margin-top:150px; margin-right:auto; margin-left:auto;">
-                <form action="" method="POST">{% csrf_token %}
+                <form action="{% url 'filter' %}" method="POST">{% csrf_token %}
                     <select class="form-control" name="select">
                         <div class="nav navbar-nav hidden-xs">
+                            <option value="" selected="selected">
+                               Wählen Sie eine Branche:
+                            </option>
                             <option value="umzug">
                                Umzug
                             </option>

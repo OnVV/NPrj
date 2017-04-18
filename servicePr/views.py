@@ -58,20 +58,6 @@ geocode['baufirma'] = latLng(firma['baufirma'])
 firma['architekt'] = Architekt.objects.all()
 geocode['architekt'] = latLng(firma['architekt'])
 
-# key = 'umzug'
-# if key in firma:
-#     print(firma.keys())
-#     print('+++++++++++++++++++++++++++++++++++++')
-#
-#     print(firma.values())
-#
-#     print('+++++++++++++++++++++++++++++++++++++')
-#     value = '8050'
-#     plz = Umzug.objects.filter(firm_plz__contains=value)
-#     print(plz)
-#     for firma in firma:
-#         print(firma)
-
 def search(s, q, f):
 
     print(q)
@@ -104,13 +90,14 @@ def search(s, q, f):
         firma[f] = Gartenbau.objects.filter(firm_plz__contains=q)
     else:
         print('PLZ nicht gefunden!!')
+
     return firma[f]
 
-def index(request):
+def filter(request):
 
     s = request.POST.get("select")
     q = request.POST.get("query")
-
+    print(s)
     context = {
 
     }
@@ -141,8 +128,13 @@ def index(request):
                 'anz': anz,
             }
 
-            return render(request, 'branchen/show.html', context)
+    return render(request, 'branchen/show.html', context)
 
+def index(request):
+
+    context = {
+
+    }
     return render(request, 'home.html', context)
 
 def umzug(request):
@@ -175,6 +167,7 @@ def umzug(request):
             'title': 'Umzug',
             'firma': firma['umzug'],
             'firma': contacts,
+            'name': 'umzug',
             'lat': lat,
             'lng': lng,
             'anz': anz,
@@ -212,6 +205,7 @@ def schreiner(request):
             'title': 'Schreiner',
             'firma': firma['schreiner'],
             'firma': contacts,
+            'name': 'schreiner',
             'lat': lat,
             'lng': lng,
             'anz': anz,
@@ -248,6 +242,7 @@ def sanitaer(request):
             'title': 'Sanitaer',
             'firma': firma['sanitaer'],
             'firma': contacts,
+            'name': 'sanitaer',
             'lat': lat,
             'lng': lng,
             'anz': anz,
@@ -283,6 +278,7 @@ def immobilien(request):
             'title': 'Immobilien',
             'firma': firma['immobilien'],
             'firma': contacts,
+            'name': 'immobilien',
             'lat': lat,
             'lng': lng,
             'anz': anz,
@@ -319,6 +315,7 @@ def gartenbau(request):
             'title': 'Gartenbau',
             'firma': firma['gartenbau'],
             'firma': contacts,
+            'name': 'gartenbau',
             'lat': lat,
             'lng': lng,
             'anz': anz,
@@ -354,6 +351,7 @@ def baufirma(request):
         'title': 'Baufirma',
         'firma': firma['baufirma'],
         'firma': contacts,
+        'name': 'baufirma',
         'lat': lat,
         'lng': lng,
         'anz': anz,
@@ -389,6 +387,7 @@ def architekt(request):
         'title': 'Architekt',
         'firma': firma['architekt'],
         'firma': contacts,
+        'name': 'architekt',
         'lat': lat,
         'lng': lng,
         'anz': anz,
@@ -424,6 +423,7 @@ def reinigung(request):
         'title': 'Reinigung',
         'firma': firma['reinigung'],
         'firma': contacts,
+        'name': 'reinigung',
         'lat': lat,
         'lng': lng,
         'anz': anz,
@@ -455,10 +455,16 @@ def maler(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = EintragFormular(request.POST)
+    if form.is_valid():
+        form.save(commit=True)
+
     context = {
+        'form': form,
         'title': 'Maler',
         'firma': firma['maler'],
         'firma': contacts,
+        'name': 'maler',
         'lat': lat,
         'lng': lng,
         'anz': anz,
@@ -491,10 +497,16 @@ def catering(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = EintragFormular(request.POST)
+    if form.is_valid():
+        form.save(commit=True)
+
     context = {
+        'form': form,
         'title': 'Catering',
         'firma': firma['catering'],
         'firma': contacts,
+        'name': 'catering',
         'lat': lat,
         'lng': lng,
         'anz': anz,

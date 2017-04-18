@@ -19,6 +19,17 @@
 
     <div class="container" style="margin-top:100px;">
 
+       {% if form %}
+        <div class="col-xs-6 col-md-3 col-sm-1 thumbnail" style="margin-top:5px; max-width:320px; float:left;">
+            <form method="POST" action="">{% csrf_token %}
+
+                    {{ form }}
+
+                <input type="submit" value="Senden" />
+            </form>
+        </div>
+       {% endif %}
+
         {% for firma in firma %}
              <div class="col-xs-6 col-md-3" >
                 <div class="thumbnail" style="border:none;">
@@ -56,6 +67,7 @@
         </span>
     </div>
 </div>
+
 
 </body>
 {% endblock %}>
