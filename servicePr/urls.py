@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^architekt/', views.architekt, name="architekt"),
     url(r'^schreiner/', views.schreiner, name="schreiner"),
     url(r'^maler/', views.maler, name="maler"),
+    url(r'^anmelden/', views.firmaForm, name="firmaForm"),
+    url(r'^search/', views.filter, name="filter"),
 ]

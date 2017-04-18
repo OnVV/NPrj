@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from servicePr.models import Umzug, Reinigung, Maler, Catering, Schreiner, Baufirma, Immobilien
 from servicePr.models import Sanitaer, Gartenbau, Architekt
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .forms import EintragFormular
 import googlemaps
 
 def latLng(branche):
@@ -13,189 +15,532 @@ def latLng(branche):
         lng.append(adressen[0]['geometry']['location']['lng'])
     return (lat, lng)
 
+geocode = dict()
+firma = dict()
+
 #Umzug
-global umzug_firma
-umzug_firma = Umzug.objects.all()
-umzugGeoCode = latLng(umzug_firma)
-print(umzug_firma)
-print(umzugGeoCode)
+firma['umzug'] = Umzug.objects.all()
+geocode['umzug'] = latLng(firma['umzug'])
 
 #Reinigung
-reinigung_firma = Reinigung.objects.all()
-reinigungGeoCode = latLng(reinigung_firma)
-print(reinigung_firma)
+firma['reinigung'] = Reinigung.objects.all()
+geocode['reinigung'] = latLng(firma['reinigung'])
 
 #Maler
-maler_firma = Maler.objects.all()
-malerGeoCode = latLng(maler_firma)
-print(maler_firma)
+firma['maler'] = Maler.objects.all()
+geocode['maler']= latLng(firma['maler'])
 
 #Catering
-catering_firma = Catering.objects.all()
-cateringGeoCode = latLng(catering_firma)
-print(catering_firma)
+firma['catering'] = Catering.objects.all()
+geocode['catering'] = latLng(firma['catering'])
 
 #Immobilien
-immobilien_firma = Immobilien.objects.all()
-immobilienGeoCode = latLng(immobilien_firma)
-print(immobilien_firma)
+firma['immobilien'] = Immobilien.objects.all()
+geocode['immobilien'] = latLng(firma['immobilien'])
 
-#Schreiner
-schreiner_firma = Schreiner.objects.all()
-schreinerGeoCode = latLng(schreiner_firma)
-print(schreiner_firma)
+# Schreiner
+firma['schreiner'] = Schreiner.objects.all()
+geocode['schreiner'] = latLng(firma['schreiner'])
 
 #Sanitär
-sanitaer_firma = Sanitaer.objects.all()
-sanitaerGeoCode = latLng(sanitaer_firma)
-print(sanitaer_firma)
+firma['sanitaer'] = Sanitaer.objects.all()
+geocode['sanitaer'] = latLng(firma['sanitaer'])
 
 #Gartenbau
-gartenbau_firma = Gartenbau.objects.all()
-gartenbauGeoCode = latLng(gartenbau_firma)
-print(gartenbau_firma)
+firma['gartenbau'] = Gartenbau.objects.all()
+geocode['gartenbau'] = latLng(firma['gartenbau'])
 
 #Baufirma
-baufirma_firma = Baufirma.objects.all()
-baufirmaGeoCode = latLng(baufirma_firma)
-print(baufirma_firma)
+firma['baufirma'] = Baufirma.objects.all()
+geocode['baufirma'] = latLng(firma['baufirma'])
 
 #Architekt
-architekt_firma = Architekt.objects.all()
-architektGeoCode = latLng(architekt_firma)
-print(architekt_firma)
+firma['architekt'] = Architekt.objects.all()
+geocode['architekt'] = latLng(firma['architekt'])
+
+def search(s, q, f):
+
+    print(q)
+    sL = list(q)
+    del(sL[1])
+    del(sL[2])
+    del(sL[1])
+    q = "".join(sL)
+    print(q)
+
+    if s == 'umzug':
+        firma[f] = Umzug.objects.filter(firm_plz__contains=q)
+    elif s == 'reinigung':
+        firma[f] = Reinigung.objects.filter(firm_plz__contains=q)
+    elif s == 'maler':
+        firma[f] = Maler.objects.filter(firm_plz__contains=q)
+    elif s == 'catering':
+        firma[f] = Catering.objects.filter(firm_plz__contains=q)
+    elif s == 'baufirma':
+        firma[f] = Baufirma.objects.filter(firm_plz__contains=q)
+    elif s == 'architekt':
+        firma[f] = Architekt.objects.filter(firm_plz__contains=q)
+    elif s == 'schreiner':
+        firma[f] = Schreiner.objects.filter(firm_plz__contains=q)
+    elif s == 'sanitaer':
+        firma[f] = Sanitaer.objects.filter(firm_plz__contains=q)
+    elif s == 'immobilien':
+        firma[f] = Immobilien.objects.filter(firm_plz__contains=q)
+    elif s == 'gartenbau':
+        firma[f] = Gartenbau.objects.filter(firm_plz__contains=q)
+    else:
+        print('PLZ nicht gefunden!!')
+
+    return firma[f]
+
+def filter(request):
+
+    s = request.POST.get("select")
+    q = request.POST.get("query")
+    print(s)
+    context = {
+
+    }
+
+    for f in firma:
+        if f == s:
+            if q:
+                firma[f] = search(s, q, f)
+            lat, lng = geocode[f]
+            anz = counter(firma[f])
+            paginator = Paginator(firma[f], 18)
+
+            page = request.GET.get('page')
+            try:
+                sites = paginator.page(page)
+            except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                sites = paginator.page(1)
+            except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+                sites = paginator.page(paginator.num_pages)
+
+            context = {
+                'firma': firma[f],
+                'firma': sites,
+                'lat': lat,
+                'lng': lng,
+                'anz': anz,
+            }
+
+    return render(request, 'branchen/show.html', context)
 
 def index(request):
 
-    TitleText = 'Sie suchen einen Fachmann? Bei uns finden Sie professionelle Dienstleister aus Ihrer Umgebung.\
-            Sparen Sie sich die lange suche nach Experten. Bei uns erreichen Sie mit einer Anfrage mehrere Anbieter.\
-            Sie entscheiden an welche Anbieter die Anfrage gehen soll.\
-            und verlangen Sie unverbindlich eine Offerte'
-
     context = {
-        'TitleText': TitleText,
-    }
 
+    }
     return render(request, 'home.html', context)
 
-def schreiner(request):
-    lat, lng = schreinerGeoCode
-    anz = counter(schreiner_firma)
+def umzug(request):
+
+    # Umzug
+    firma['umzug'] = Umzug.objects.all()
+    geocode['umzug'] = latLng(firma['umzug'])
+
+    q = request.POST.get("query")
+
+    if q:
+        firma['umzug'] = search('umzug', q, firma['umzug'])
+
+    lat, lng = geocode['umzug']
+    anz = counter(firma['umzug'])
+
+    paginator = Paginator(firma['umzug'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
 
     context = {
-        'firma': schreiner_firma,
-        'lat': lat,
-        'lng': lng,
-        'anz': anz,
-                }
-    return render(request, 'branchen/schreiner.html', context)
+            'title': 'Umzug',
+            'firma': firma['umzug'],
+            'firma': contacts,
+            'name': 'umzug',
+            'lat': lat,
+            'lng': lng,
+            'anz': anz,
+            }
+
+    return render(request, 'branchen/show.html', context)
+
+def schreiner(request):
+
+    # Schreiner
+    firma['schreiner'] = Schreiner.objects.all()
+    geocode['schreiner'] = latLng(firma['schreiner'])
+
+    q = request.POST.get("query")
+
+    if q:
+        firma['schreiner'] = search('schreiner', q, firma['schreiner'])
+
+    lat, lng = geocode['schreiner']
+    anz = counter(firma['schreiner'])
+
+    paginator = Paginator(firma['schreiner'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
+    context = {
+            'title': 'Schreiner',
+            'firma': firma['schreiner'],
+            'firma': contacts,
+            'name': 'schreiner',
+            'lat': lat,
+            'lng': lng,
+            'anz': anz,
+            }
+    return render(request, 'branchen/show.html', context)
 
 def sanitaer(request):
-    lat, lng = sanitaerGeoCode
-    anz = counter(sanitaer_firma)
+
+    # Sanitaer
+    firma['sanitaer'] = Sanitaer.objects.all()
+    geocode['sanitaer'] = latLng(firma['sanitaer'])
+
+    q = request.POST.get("query")
+
+    if q:
+        firma['sanitaer'] = search('sanitaer', q, firma['sanitaer'])
+
+    lat, lng = geocode['sanitaer']
+    anz = counter(firma['sanitaer'])
+
+    paginator = Paginator(firma['sanitaer'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
     context = {
-        'firma': sanitaer_firma,
-        'lat': lat,
-        'lng': lng,
-        'anz': anz,
-                }
-    return render(request, 'branchen/sanitaer.html', context)
+            'title': 'Sanitaer',
+            'firma': firma['sanitaer'],
+            'firma': contacts,
+            'name': 'sanitaer',
+            'lat': lat,
+            'lng': lng,
+            'anz': anz,
+            }
+    return render(request, 'branchen/show.html', context)
 
 def immobilien(request):
-    lat, lng = immobilienGeoCode
-    anz = counter(immobilien_firma)
+    # immobilien
+    firma['immobilien'] = Immobilien.objects.all()
+    geocode['immobilien'] = latLng(firma['immobilien'])
+
+    q = request.POST.get("query")
+
+    if q:
+        firma['immobilien'] = search('immobilien', q, firma['immobilien'])
+
+    lat, lng = geocode['immobilien']
+    anz = counter(firma['immobilien'])
+
+    paginator = Paginator(firma['immobilien'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
     context = {
-        'firma': immobilien_firma,
-        'lat': lat,
-        'lng': lng,
-        'anz': anz,
-                }
-    return render(request, 'branchen/immobilien.html', context)
+            'title': 'Immobilien',
+            'firma': firma['immobilien'],
+            'firma': contacts,
+            'name': 'immobilien',
+            'lat': lat,
+            'lng': lng,
+            'anz': anz,
+            }
+    return render(request, 'branchen/show.html', context)
 
 def gartenbau(request):
-    lat, lng = gartenbauGeoCode
-    anz = counter(gartenbau_firma)
+
+    # Gartenbau
+    firma['gartenbau'] = Gartenbau.objects.all()
+    geocode['gartenbau'] = latLng(firma['gartenbau'])
+
+    q = request.POST.get("query")
+
+    if q:
+        firma['gartenbau'] = search('gartenbau', q, firma['gartenbau'])
+
+    lat, lng = geocode['gartenbau']
+    anz = counter(firma['gartenbau'])
+
+    paginator = Paginator(firma['gartenbau'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
     context = {
-        'firma': gartenbau_firma,
-        'lat': lat,
-        'lng': lng,
-        'anz': anz,
-                }
-    return render(request, 'branchen/gartenbau.html', context)
+            'title': 'Gartenbau',
+            'firma': firma['gartenbau'],
+            'firma': contacts,
+            'name': 'gartenbau',
+            'lat': lat,
+            'lng': lng,
+            'anz': anz,
+            }
+    return render(request, 'branchen/show.html', context)
 
 def baufirma(request):
-    lat, lng = baufirmaGeoCode
-    anz = counter(baufirma_firma)
+    # Baufirma
+    firma['baufirma'] = Baufirma.objects.all()
+    geocode['baufirma'] = latLng(firma['baufirma'])
+
+    q = request.POST.get("query")
+
+    if q:
+        firma['baufirma'] = search('baufirma', q, firma['baufirma'])
+
+    lat, lng = geocode['baufirma']
+    anz = counter(firma['baufirma'])
+
+    paginator = Paginator(firma['baufirma'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
     context = {
-        'firma': baufirma_firma,
+        'title': 'Baufirma',
+        'firma': firma['baufirma'],
+        'firma': contacts,
+        'name': 'baufirma',
         'lat': lat,
         'lng': lng,
         'anz': anz,
-                }
-    return render(request, 'branchen/baufirma.html', context)
+            }
+    return render(request, 'branchen/show.html', context)
 
 def architekt(request):
-    lat, lng = architektGeoCode
-    anz = counter(architekt_firma)
+    # Architekt
+    firma['architekt'] = Architekt.objects.all()
+    geocode['architekt'] = latLng(firma['architekt'])
+
+    q = request.POST.get("query")
+
+    if q:
+        firma['architekt'] = search('architekt', q, firma['architekt'])
+
+    lat, lng = geocode['architekt']
+    anz = counter(firma['architekt'])
+
+    paginator = Paginator(firma['architekt'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
     context = {
-        'firma': architekt_firma,
+        'title': 'Architekt',
+        'firma': firma['architekt'],
+        'firma': contacts,
+        'name': 'architekt',
         'lat': lat,
         'lng': lng,
         'anz': anz,
-                }
-    return render(request, 'branchen/architekt.html', context)
-
-
-def umzug(request):
-    title = "Umzugsfirmen"
-    lat, lng = umzugGeoCode
-    anz = counter(umzug_firma)
-    print(title)
-    context = {
-        'title': title,
-        'firma': umzug_firma,
-        'lat': lat,
-        'lng': lng,
-        'anz': anz,
-                }
-    return render(request, 'branchen/umzug.html', context)
+    }
+    return render(request, 'branchen/show.html', context)
 
 def reinigung(request):
-    lat, lng = reinigungGeoCode
-    anz = counter(reinigung_firma)
+    # Reinigung
+    firma['reinigung'] = Reinigung.objects.all()
+    geocode['reinigung'] = latLng(firma['reinigung'])
+
+    q = request.POST.get("query")
+
+    if q:
+        firma['reinigung'] = search('reinigung', q, firma['reinigung'])
+
+    lat, lng = geocode['reinigung']
+    anz = counter(firma['reinigung'])
+
+    paginator = Paginator(firma['reinigung'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
     context = {
-           'firma': reinigung_firma,
-           'lat': lat,
-           'lng': lng,
-           'anz': anz,
+        'title': 'Reinigung',
+        'firma': firma['reinigung'],
+        'firma': contacts,
+        'name': 'reinigung',
+        'lat': lat,
+        'lng': lng,
+        'anz': anz,
     }
-    return render(request, 'branchen/reinigung.html', context)
+    return render(request, 'branchen/show.html', context)
 
 def maler(request):
-    lat, lng = malerGeoCode
-    anz = counter(maler_firma)
+    # Maler
+    firma['maler'] = Maler.objects.all()
+    geocode['maler'] = latLng(firma['maler'])
+
+    q = request.POST.get("query")
+
+    if q:
+        firma['maler'] = search('maler', q, firma['maler'])
+
+    lat, lng = geocode['maler']
+    anz = counter(firma['maler'])
+
+    paginator = Paginator(firma['maler'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
+    form = EintragFormular(request.POST)
+    if form.is_valid():
+        form.save(commit=True)
+
     context = {
-        'firma': maler_firma,
+        'form': form,
+        'title': 'Maler',
+        'firma': firma['maler'],
+        'firma': contacts,
+        'name': 'maler',
         'lat': lat,
         'lng': lng,
         'anz': anz,
     }
 
-    return render(request, 'branchen/maler.html', context)
+    return render(request, 'branchen/show.html', context)
 
 def catering(request):
+    # Catering
+    firma['catering'] = Catering.objects.all()
+    geocode['catering'] = latLng(firma['catering'])
 
-    lat, lng = cateringGeoCode
-    anz = counter(catering_firma)
+    q = request.POST.get("query")
+
+    if q:
+        firma['catering'] = search('catering', q, firma['catering'])
+
+    lat, lng = geocode['catering']
+    anz = counter(firma['catering'])
+
+    paginator = Paginator(firma['catering'], 18)
+    page = request.GET.get('page')
+
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
+    form = EintragFormular(request.POST)
+    if form.is_valid():
+        form.save(commit=True)
 
     context = {
-         'firma': catering_firma,
-         'lat': lat,
-         'lng': lng,
-         'anz': anz,
-        }
-    return render(request, 'branchen/catering.html', context)
+        'form': form,
+        'title': 'Catering',
+        'firma': firma['catering'],
+        'firma': contacts,
+        'name': 'catering',
+        'lat': lat,
+        'lng': lng,
+        'anz': anz,
+    }
+    return render(request, 'branchen/show.html', context)
 
+
+# ****FORM****
+def firmaForm(request):
+    form = EintragFormular(request.POST)
+    if form.is_valid():
+        form.save(commit=True)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'nav/firmaForm.html', context)
+
+# ****Search****
+def suche(request):
+
+    form = Suche(request.POST)
+    if form.is_valid():
+        form.save(commit=True)
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'nav/suche.html', context)
+
+
+# ***COUNTER****
 def counter(branche):
     index = 0
     for branche in branche:

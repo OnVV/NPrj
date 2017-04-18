@@ -5,13 +5,20 @@
     height:200px;
     margin-top:100px;
 }
+
+
 #footer{
     height:300px;
     width:100%;
 }
+#footerfont{
+    float:right;
+    font-color:white;
+    background-color:grey;
+}
 
 #bimg{
-    background-image: url('img/winter.jpg');
+    background-image: url('img/winter2.jpg');
     height: 420px;
 }
 
@@ -29,6 +36,7 @@
     color:black;
     text-decoration:none;
     text-align:center;
+    background-color:
 }
 
 .nav_icons_deco:hover{
