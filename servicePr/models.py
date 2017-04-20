@@ -122,13 +122,51 @@ class Schreiner(models.Model):
         return self.firm_name + ' - ' + self.firm_adress
 
 class Firmeneintrag(models.Model):
+    auswahl = (
+        ('Umzug', 'Umzug'),
+        ('Reingung', 'Reingung'),
+        ('Maler', 'Maler'),
+        ('Schreiner', 'Schreiner'),
+        ('Sanitaer', 'Sanitaer'),
+        ('Immobilien', 'Immobilien'),
+        ('Gartenbau', 'Gartenbau'),
+        ('Baufirma', 'Baufirma'),
+        ('Catering', 'Catering'),
+        ('Architekt', 'Architekt'),
+    )
+
     name = models.CharField(max_length=200, null=True)
     firma = models.CharField(max_length=200, null=True)
     eMail = models.CharField(max_length=200, null=True)
-    branche = models.CharField(max_length=200, null=True)
+    branche = models.CharField(max_length=200, choices=auswahl)
 
     def __str__(self):
         return self.name + ' - ' + self.firma
+
+class OffertAnfrage(models.Model):
+    auswahl = (
+        ('Umzug', 'Umzug'),
+        ('Reingung', 'Reingung'),
+        ('Maler', 'Maler'),
+        ('Schreiner', 'Schreiner'),
+        ('Sanitaer', 'Sanitaer'),
+        ('Immobilien', 'Immobilien'),
+        ('Gartenbau', 'Gartenbau'),
+        ('Baufirma', 'Baufirma'),
+        ('Catering', 'Catering'),
+        ('Architekt', 'Architekt'),
+    )
+
+    name = models.CharField(max_length=200, null=True)
+    adress = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200, null=True)
+    tel = models.CharField(max_length=200, null=True)
+    branche = models.CharField(max_length=200, choices=auswahl)
+    selected_firmen = models.CharField(max_length=200, null=True)
+    description = models.TextField(null=True)
+
+    def __str__(self):
+        return self.name + ' - ' + self.email
 
 class Suche(models.Model):
     suche = models.CharField(max_length=200, null=True)
