@@ -23,9 +23,10 @@
             <div class="col-xs-12 col-md-3 thumbnail" style="margin-top:5px; max-width:320px; float:left;">
                 {{ form }}
                 <input type="submit" value="senden" />
+
             </div>
            {% endif %}
-
+ </form>
             {% for firma in firma %}
                  <div class="col-xs-6 col-md-3" >
                     <div class="thumbnail" style="border:none;">
@@ -39,14 +40,12 @@
                             <p>{{ firma.id }}</p>
                             <p><a href='{{ firma.firm_homepage }}'>link</a></p>
                         </div>
-
-                        <button class="btn btn-primary responsive" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            Kontakt
-                         </button>
+                        <button onclick="myFunction()">Zur Liste hinzufügen</button>
                     </div>
+
                  </div>
+
             {% endfor %}
-        </form>
     </div>
 <div class="container">
     <div class="pagination">
