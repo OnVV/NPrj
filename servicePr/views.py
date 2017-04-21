@@ -2,7 +2,7 @@ from django.shortcuts import render
 from servicePr.models import Umzug, Reinigung, Maler, Catering, Schreiner, Baufirma, Immobilien
 from servicePr.models import Sanitaer, Gartenbau, Architekt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import EintragFormular
+from .forms import EintragFormular, Anfrage
 import googlemaps
 
 def latLng(branche):
@@ -60,13 +60,11 @@ geocode['architekt'] = latLng(firma['architekt'])
 
 def search(s, q, f):
 
-    print(q)
     sL = list(q)
     del(sL[1])
     del(sL[2])
     del(sL[1])
     q = "".join(sL)
-    print(q)
 
     if s == 'umzug':
         firma[f] = Umzug.objects.filter(firm_plz__contains=q)
@@ -97,7 +95,7 @@ def filter(request):
 
     s = request.POST.get("select")
     q = request.POST.get("query")
-    print(s)
+
     context = {
 
     }
@@ -163,11 +161,18 @@ def umzug(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
     context = {
             'title': 'Umzug',
             'firma': firma['umzug'],
             'firma': contacts,
             'name': 'umzug',
+            'form': form,
             'lat': lat,
             'lng': lng,
             'anz': anz,
@@ -201,8 +206,15 @@ def schreiner(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
     context = {
             'title': 'Schreiner',
+            'form': form,
             'firma': firma['schreiner'],
             'firma': contacts,
             'name': 'schreiner',
@@ -238,8 +250,15 @@ def sanitaer(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
     context = {
             'title': 'Sanitaer',
+            'form': form,
             'firma': firma['sanitaer'],
             'firma': contacts,
             'name': 'sanitaer',
@@ -274,8 +293,15 @@ def immobilien(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
     context = {
             'title': 'Immobilien',
+            'form': form,
             'firma': firma['immobilien'],
             'firma': contacts,
             'name': 'immobilien',
@@ -311,7 +337,14 @@ def gartenbau(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
     context = {
+            'form': form,
             'title': 'Gartenbau',
             'firma': firma['gartenbau'],
             'firma': contacts,
@@ -347,8 +380,15 @@ def baufirma(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
     context = {
         'title': 'Baufirma',
+        'form': form,
         'firma': firma['baufirma'],
         'firma': contacts,
         'name': 'baufirma',
@@ -383,7 +423,14 @@ def architekt(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
     context = {
+        'form': form,
         'title': 'Architekt',
         'firma': firma['architekt'],
         'firma': contacts,
@@ -419,8 +466,15 @@ def reinigung(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
     context = {
         'title': 'Reinigung',
+        'form': form,
         'firma': firma['reinigung'],
         'firma': contacts,
         'name': 'reinigung',
@@ -455,9 +509,11 @@ def maler(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
-    form = EintragFormular(request.POST)
-    if form.is_valid():
-        form.save(commit=True)
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
 
     context = {
         'form': form,
@@ -497,9 +553,11 @@ def catering(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
-    form = EintragFormular(request.POST)
-    if form.is_valid():
-        form.save(commit=True)
+    form = Anfrage()
+    if request.POST:
+        form = Anfrage(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
 
     context = {
         'form': form,
@@ -519,7 +577,7 @@ def firmaForm(request):
     form = EintragFormular(request.POST)
     if form.is_valid():
         form.save(commit=True)
-
+        return render(request, 'nav/form_bestaetigung.html', {})
     context = {
         'form': form,
     }
