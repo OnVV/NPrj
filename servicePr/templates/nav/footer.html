@@ -32,12 +32,14 @@
             <div style="max-width:350px; margin-right:auto; margin-left:auto;">
                     <p class="hidden-xs" style="color:white" >Geben Sie ihre Postleitzahl ein.</p>
                 <div class="nav navbar-nav hidden-xs"  style="">
-                    <input type="text" placeholder="8000" style="height:30px;">
-                    <button type="button"  class="button" style="float:right; background-color:black; color:white; height:30px; border:none;">
-                        Suchen
-                    </button>
-                    <br><br><br>
-                    <p style="color:white">Suchen Sie Firmen in Ihrer Region.<br> Erhalten Sie unverbindliche Offerten.</p>
+                    <form action="" method="POST">{% csrf_token %}
+                        <input type="text" placeholder="8000" style="height:30px;">
+                        <button type="submit"  class="button" style="float:right; background-color:black; color:white; height:30px; border:none;">
+                            Suchen
+                        </button>
+                        <br><br><br>
+                        <p style="color:white">Suchen Sie Firmen in Ihrer Region.<br> Erhalten Sie unverbindliche Offerten.</p>
+                    </form>
                 </div>
             </div>
         </div>
