@@ -17,13 +17,6 @@ def latLng(branche):
 geocode = dict()
 firma = dict()
 
-def index(request):
-
-    context = {
-    }
-
-    return render(request, 'home.html', context)
-
 def show(request, name):
 
     n = name
@@ -87,6 +80,13 @@ def show(request, name):
     }
 
     return render(request, 'branchen/show.html', context)
+
+def index(request):
+
+    context = {
+    }
+
+    return render(request, 'home.html', context)
 
 # ****FORM****
 def firmaForm(request):
