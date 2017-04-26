@@ -1,9 +1,7 @@
 from django.shortcuts import render
-from servicePr.models import Umzug, Reinigung, Maler, Catering, Schreiner, Baufirma, Immobilien
-from servicePr.models import Sanitaer, Gartenbau, Architekt
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import EintragFormular, Anfrage
 from .firm import Firmeneintrag
+from .search import Search
 import googlemaps
 
 def latLng(branche):
@@ -18,76 +16,6 @@ def latLng(branche):
 
 geocode = dict()
 firma = dict()
-
-def search(s, q, f):
-
-    sL = list(q)
-    del(sL[1])
-    del(sL[2])
-    del(sL[1])
-    q = "".join(sL)
-
-    if s == 'umzug':
-        firma[f] = Umzug.objects.filter(firm_plz__contains=q)
-    elif s == 'reinigung':
-        firma[f] = Reinigung.objects.filter(firm_plz__contains=q)
-    elif s == 'maler':
-        firma[f] = Maler.objects.filter(firm_plz__contains=q)
-    elif s == 'catering':
-        firma[f] = Catering.objects.filter(firm_plz__contains=q)
-    elif s == 'baufirma':
-        firma[f] = Baufirma.objects.filter(firm_plz__contains=q)
-    elif s == 'architekt':
-        firma[f] = Architekt.objects.filter(firm_plz__contains=q)
-    elif s == 'schreiner':
-        firma[f] = Schreiner.objects.filter(firm_plz__contains=q)
-    elif s == 'sanitaer':
-        firma[f] = Sanitaer.objects.filter(firm_plz__contains=q)
-    elif s == 'immobilien':
-        firma[f] = Immobilien.objects.filter(firm_plz__contains=q)
-    elif s == 'gartenbau':
-        firma[f] = Gartenbau.objects.filter(firm_plz__contains=q)
-    else:
-        print('PLZ nicht gefunden!!')
-
-    return firma[f]
-
-def filter(request):
-
-    s = request.POST.get("select")
-    q = request.POST.get("query")
-
-    context = {
-
-    }
-
-    for f in firma:
-        if f == s:
-            if q:
-                firma[f] = search(s, q, f)
-            lat, lng = geocode[f]
-            anz = counter(firma[f])
-            paginator = Paginator(firma[f], 18)
-
-            page = request.GET.get('page')
-            try:
-                sites = paginator.page(page)
-            except PageNotAnInteger:
-                # If page is not an integer, deliver first page.
-                sites = paginator.page(1)
-            except EmptyPage:
-                # If page is out of range (e.g. 9999), deliver last page of results.
-                sites = paginator.page(paginator.num_pages)
-
-            context = {
-                'firma': firma[f],
-                'firma': sites,
-                'lat': lat,
-                'lng': lng,
-                'anz': anz,
-            }
-
-    return render(request, 'branchen/show.html', context)
 
 def index(request):
 
@@ -108,15 +36,45 @@ def show(request, name):
     contacts = U.pagi(request, f)
     anz = counter(f)
 
-    q = request.POST.get("query")
-    if q:
-        f = search(n, q, f)
-
     form = Anfrage()
     if request.POST:
         form = Anfrage(request.POST)
         if form.is_valid():
             form.save(commit=True)
+
+    if request.POST.get("query"):
+
+        s = request.POST.get("query")
+        y = int(s)
+
+        if s == '' or y < 1000 or y > 10000:
+            context = {
+                'title': n,
+                'firma': f,
+                'firma': contacts,
+                'form': form,
+                'lat': lat,
+                'lng': lng,
+                'anz': anz,
+            }
+
+            return render(request, 'branchen/show.html', context)
+
+        search = Search()
+        firm_list = search.plz(y, n)
+        contacts = U.pagi(request, firm_list)
+
+        context = {
+            'title': n,
+            'firma': firm_list,
+            'firma': contacts,
+            'form': form,
+            'lat': lat,
+            'lng': lng,
+            'anz': anz,
+        }
+
+        return render(request, 'branchen/show.html', context)
 
     context = {
         'title': n,
