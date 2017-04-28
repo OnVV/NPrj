@@ -21,6 +21,9 @@
            {% if form %}
             <div class="col-xs-12 col-md-3 thumbnail" style="margin-top:5px; max-width:320px; float:left;">
                 {{ form }}
+                    <div class="container">
+                        <div id="ro"></div>
+                    </div>
                 <input type="submit" value="senden" />
             </div>
            {% endif %}
@@ -38,14 +41,10 @@
                             <p>{{ firma.id }}</p>
                             <p><a href='{{ firma.firm_homepage }}'>link</a></p>
                         </div>
-                        <select>
-                            <option value="{{ firma.id }}"><button type="button" >{{ firma.firm_name }} Zur Liste hinzufügen</button></option>
-                        </select>
+                         <button class="btn" onclick="myFunction()">+ {{ firma.firm_name }}</button>
 
                     </div>
-
                  </div>
-
             {% endfor %}
     </div>
 <div class="container">
@@ -66,6 +65,18 @@
     </div>
 </div>
 
+<!--<button onclick="myFunction()">Click me</button>-->
+
+<!--<script>-->
+<!--function myFunction() {-->
+    <!--document.getElementById("demo").innerHTML = "Hello World";-->
+<!--}-->
+<!--</script>-->
+    <script>
+        function myFunction() {
+            document.getElementById("ro").innerHTML = "TEST";
+        }
+    </script>
 
 </body>
 {% endblock %}>

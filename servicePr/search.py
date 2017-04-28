@@ -27,63 +27,69 @@ class Search:
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
-
+            pass
         elif name == 'Reinigung':
             firma = Reinigung.objects.all()
             firms = []
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
+            pass
         elif name == 'Maler':
-            firma = Maler.objects.filter(firm_plz__icontains=r_list)
+            firma = Maler.objects.all()
             firms = []
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
+            pass
         elif name == 'Catering':
-            firma = Catering.objects.filter(firm_plz__contains=r_list)
+            firma = Catering.objects.all()
             firms = []
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
+            pass
         elif name == 'Baufirma':
-            firma = Baufirma.objects.filter(firm_plz__contains=r_list)
+            firma = Baufirma.objects.all()
             firms = []
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
         elif name == 'Architekt':
-            firma = Architekt.objects.filter(firm_plz__contains=r_list)
+            firma = Architekt.objects.all()
             firms = []
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
+            pass
         elif name == 'Schreiner':
-            firma = Schreiner.objects.filter(firm_plz__contains=r_list)
+            firma = Schreiner.objects.all()
             firms = []
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
+            pass
         elif name == 'Sanitaer':
-            firma = Sanitaer.objects.filter(firm_plz__contains=r_list)
+            firma = Sanitaer.objects.all()
             firms = []
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
+            pass
         elif name == 'Immobilien':
-            firma = Immobilien.objects.filter(firm_plz__contains=r_list)
+            firma = Immobilien.objects.all()
             firms = []
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
+            pass
         elif name == 'Gartenbau':
-            firma = Gartenbau.objects.filter(firm_plz__contains=r_list)
+            firma = Gartenbau.objects.all()
             firms = []
             for r in r_list:
                 if firma.filter(firm_plz__icontains=r):
                     firms += firma.filter(firm_plz__contains=r)
-        else:
-            print('PLZ nicht gefunden!!')
+            pass
         return firms
 
 class Region:
