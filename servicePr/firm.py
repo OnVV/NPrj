@@ -1,6 +1,7 @@
 from .models import Umzug, Reinigung, Maler, Catering, Baufirma
 from .models import Sanitaer, Gartenbau, Architekt, Schreiner, Immobilien
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import random
 
 class Firmeneintrag:
 
@@ -13,27 +14,41 @@ class Firmeneintrag:
 
         if name == 'Umzug':
             x = Umzug.objects.all()
+            pass
         elif name == 'Reinigung':
             x = Reinigung.objects.all()
+            pass
         elif name == 'Maler':
             x = Maler.objects.all()
+            pass
         elif name == 'Baufirma':
             x = Baufirma.objects.all()
+            pass
         elif name == 'Catering':
             x = Catering.objects.all()
+            pass
         elif name == 'Architekt':
             x = Architekt.objects.all()
+            pass
         elif name == 'Sanitaer':
             x = Sanitaer.objects.all()
+            pass
         elif name == 'Schreiner':
             x = Schreiner.objects.all()
+            pass
         elif name == 'Immobilien':
             x = Immobilien.objects.all()
+            pass
         elif name == 'Gartenbau':
             x = Gartenbau.objects.all()
+            pass
         else:
             print('Wahr wohl nix, ihr luschen!!!')
-        return x
+
+        x = list(x)
+        y = random.sample(x, len(x))
+
+        return y
 
     def pagi(self, request, f):
 
