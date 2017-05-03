@@ -6,6 +6,7 @@ class Umzug(models.Model):
     firm_adress = models.CharField(max_length=200)
     firm_plz = models.CharField(max_length=200)
     firm_ort = models.CharField(max_length=200, null=True)
+    firm_beschreibung = models.CharField(max_length=600, null=True)
     firm_homepage = models.CharField(max_length=200)
     firm_logo = models.ImageField(upload_to='treasure_images')
     updated = models.DateTimeField(auto_now=True, auto_now_add=False, blank=True)
@@ -172,7 +173,6 @@ class OffertAnfrage(models.Model):
     email = models.CharField(max_length=200, null=True)
     tel = models.CharField(max_length=200, null=True)
     branche = models.CharField(max_length=200, choices=auswahl)
-    selected_firmen = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True)
 
     def __str__(self):

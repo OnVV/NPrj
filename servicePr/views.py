@@ -4,6 +4,8 @@ from .firm import Firmeneintrag
 from .search import Search
 import googlemaps
 
+geocode = dict()
+
 def latLng(branche):
     gmaps = googlemaps.Client(key='AIzaSyBCqMzTBiROM7g3PcHaG-PY2vTqXYYtWhU')
     lat = []
@@ -14,20 +16,10 @@ def latLng(branche):
         lng.append(adressen[0]['geometry']['location']['lng'])
     return (lat, lng)
 
-geocode = dict()
-firma = dict()
-
-def index(request):
-
-    context = {
-    }
-
-    return render(request, 'home.html', context)
-
 def show(request, name):
 
     n = name
-
+    print(n)
     U = Firmeneintrag()
     f = U.loadFirma(n)
 
@@ -87,6 +79,68 @@ def show(request, name):
     }
 
     return render(request, 'branchen/show.html', context)
+
+def index(request):
+
+    if request.POST:
+        s = request.POST.get("select")
+        q = request.POST.get("query")
+
+        if s == 'X':
+            return render(request, 'home.html')
+        if q < '1000' or q > '10000':
+            print('false!!')
+
+        x = Firmeneintrag()
+        indexFirm = x.loadFirma(s)
+
+        geocode[s] = latLng(indexFirm)
+        lat, lng = geocode[s]
+        contacts = x.pagi(request, indexFirm)
+        anz = counter(indexFirm)
+
+        form = Anfrage()
+        if request.POST:
+            form = Anfrage(request.POST)
+            if form.is_valid():
+                form.save(commit=True)
+
+        if q:
+            query = int(q)
+            search = Search()
+            firm_list = search.plz(query, s)
+            contacts = x.pagi(request, firm_list)
+
+            context = {
+                'title': s,
+                'firma': firm_list,
+                'firma': contacts,
+                'form': form,
+                'lat': lat,
+                'lng': lng,
+                'anz': anz,
+            }
+
+            return render(request, 'branchen/show.html', context)
+
+        context = {
+            'title': s,
+            'firma': x,
+            'firma': contacts,
+            'form': form,
+            'lat': lat,
+            'lng': lng,
+            'anz': anz,
+        }
+
+        return render(request, 'branchen/show.html', context)
+
+
+    context = {
+
+    }
+
+    return render(request, 'home.html', context)
 
 # ****FORM****
 def firmaForm(request):

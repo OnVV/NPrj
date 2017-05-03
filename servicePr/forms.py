@@ -25,13 +25,12 @@ class Suche(forms.ModelForm):
 class Anfrage(forms.ModelForm):
     class Meta:
         model = OffertAnfrage
-        fields = ['name', 'adress', 'email', 'tel', 'branche', 'selected_firmen', 'description']
+        fields = ['name', 'adress', 'email', 'tel', 'branche', 'description']
         widgets = {
             'adress': forms.TextInput(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
             'tel': forms.TextInput(attrs={'class': 'form-control'}),
             'branche': forms.Select(attrs={'class': 'form-control'}),
-            'selected_firmen': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
         }

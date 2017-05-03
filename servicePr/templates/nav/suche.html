@@ -2,41 +2,46 @@
 <div class="thumbnail" id="bimg">
     <div  class="container">
         <div style="max-width:450px; margin-top:150px; margin-right:auto; margin-left:auto;">
-                <form action="{% url 'filter' %}" method="POST">{% csrf_token %}
+                <form action="" method="POST">{% csrf_token %}
                     <select class="form-control" name="select">
                         <div class="nav navbar-nav hidden-xs">
-                            <option value="" selected="selected">
-                               Wählen Sie eine Branche:
+                            <option value="X" selected="selected">
+                               Branche auswählen:
                             </option>
-                            <option value="umzug">
-                               Umzug
+                            <option value="Umzug">
+                                Umzug
                             </option>
 
-                            <option value="reinigung">
+                            <option value="Reinigung">
                                 Reinigung
                             </option>
 
-                            <option value="maler">
+                            <option value="Maler">
                                 Maler
                             </option>
 
-                            <option value="catering">
+                            <option value="Catering">
                                 Catering
                             </option>
-
-                            <option value="treuhand">
-                                Treuhand
+                            <option value="Schreiner">
+                                Schreiner
+                            </option>
+                            <option value="Architekt">
+                                Architekt
+                            </option>
+                            <option value="Gartenbau">
+                                Gartenbau
                             </option>
 
-                            <option value="buchhaltung">
-                                Buchhaltung
+                            <option value="Sanitaer">
+                                Sanitär
                             </option>
 
-                            <option value="baufirma">
+                            <option value="Baufirma">
                                 Baufirma
                             </option>
 
-                            <option value="immobilien">
+                            <option value="Immobilien">
                                 Immobilien
                             </option>
                         </div>

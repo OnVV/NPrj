@@ -14,5 +14,4 @@ urlpatterns = [
     url(r'^schreiner/', views.show, {'name': 'Schreiner'}, name="schreiner"),
     url(r'^maler/', views.show, {'name': 'Maler'}, name="maler"),
     url(r'^anmelden/', views.firmaForm, name="firmaForm"),
-    # url(r'^search/', views.filter, name="filter"),
-]
+    ]
