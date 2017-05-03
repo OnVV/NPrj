@@ -21,7 +21,8 @@
            {% if form %}
             <div class="col-xs-12 col-md-3 thumbnail" style="margin-top:5px; max-width:320px; float:left;">
                 {{ form }}
-                    <div class="container" style="margin-top:20px;">
+                    <div class="container thumbnail" style="max-width:100%; margin-top:20px;">
+                        <h4>Anfrage senden an:</h4>
                         {% for firma in firma %}
                             <strong id="str">
                                <a><p id="{{ firma.id }}" style="background-color:grey; color:white; border-radius:3px; max-width:250px; text-align:center;"></p></a>
@@ -42,7 +43,6 @@
                             <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="{{ firma.firm_name }}" data-content="{{ firma.firm_beschreibung }}" />
                                 <img src="{% static 'img/infoIcon.png' %}" style="max-height:50px; margin-right:1px;"/>
                             </a>
-
                             <p>{{ firma.firm_name }}</p>
                             <p>{{ firma.firm_adress }}</p>
                             <p>{{ firma.firm_plz }} {{ firma.firm_ort }}</p>
@@ -57,20 +57,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         function myFunction(objValue) {
+            var i = 0;
             {% for firma in firma %}
                 if("{{ firma.firm_name }}" == objValue.value){
                     e = document.getElementById("{{ firma.id }}")
                     e.innerHTML = "+" + objValue.value;
-                }
+              }
+
             {% endfor %}
         }
-        $(document).ready(function(){
-            $("strong").click(function(){
-                $(this).remove();
+            $(document).ready(function(){
+                $("strong").click(function(){
+                    $(this).remove();
             });
 
             $(function () {
-                $('[data-toggle="popover"]').popover()
+                var options = {'style':'width:200px'};
+                $('[data-toggle="popover"]').popover( options )
                });
          });
     </script>
@@ -91,14 +94,6 @@
         </span>
     </div>
 </div>
-
-<!--<button onclick="myFunction()">Click me</button>-->
-
-<!--<script>-->
-<!--function myFunction() {-->
-    <!--document.getElementById("demo").innerHTML = "Hello World";-->
-<!--}-->
-<!--</script>-->
 
 </body>
 {% endblock %}>

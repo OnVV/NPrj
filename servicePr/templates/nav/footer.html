@@ -1,6 +1,5 @@
 {% load staticfiles %}
 <div class="container">
-
         <br><br>
         <ul style="float:right; list-style:none;">
             <a href="#"><li  style="color:white" >Kontakt</li></a>
@@ -33,10 +32,8 @@
                     <p class="hidden-xs" style="color:white" >Geben Sie ihre Postleitzahl ein.</p>
                 <div class="nav navbar-nav hidden-xs"  style="">
                     <form action="" method="POST">{% csrf_token %}
-                        <input type="text" placeholder="8000" style="height:30px;">
-                        <button type="submit"  class="button" style="float:right; background-color:black; color:white; height:30px; border:none;">
-                            Suchen
-                        </button>
+                        <input type="text" name="query" placeholder="8000" style="height:30px;">
+                        <input type="submit" class="btn" value="Suchen" />
                         <br><br><br>
                         <p style="color:white">Suchen Sie Firmen in Ihrer Region.<br> Erhalten Sie unverbindliche Offerten.</p>
                     </form>

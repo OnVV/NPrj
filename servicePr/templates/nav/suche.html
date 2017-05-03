@@ -5,11 +5,11 @@
                 <form action="" method="POST">{% csrf_token %}
                     <select class="form-control" name="select">
                         <div class="nav navbar-nav hidden-xs">
-                            <option value="" selected="selected">
-                               Wählen Sie eine Branche:
+                            <option value="X" selected="selected">
+                               Branche auswählen:
                             </option>
                             <option value="Umzug">
-                               Umzug
+                                Umzug
                             </option>
 
                             <option value="Reinigung">
@@ -23,7 +23,12 @@
                             <option value="Catering">
                                 Catering
                             </option>
-
+                            <option value="Schreiner">
+                                Schreiner
+                            </option>
+                            <option value="Architekt">
+                                Architekt
+                            </option>
                             <option value="Gartenbau">
                                 Gartenbau
                             </option>

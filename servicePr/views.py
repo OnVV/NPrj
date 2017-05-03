@@ -82,13 +82,14 @@ def show(request, name):
 
 def index(request):
 
-    # umzug = Umzug.objects.all()
-    # u = umzug.firm_plz.all()
-    # print(u)
-
     if request.POST:
         s = request.POST.get("select")
         q = request.POST.get("query")
+
+        if s == 'X':
+            return render(request, 'home.html')
+        if q < '1000' or q > '10000':
+            print('false!!')
 
         x = Firmeneintrag()
         indexFirm = x.loadFirma(s)
@@ -106,7 +107,6 @@ def index(request):
 
         if q:
             query = int(q)
-
             search = Search()
             firm_list = search.plz(query, s)
             contacts = x.pagi(request, firm_list)

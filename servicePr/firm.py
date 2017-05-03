@@ -55,7 +55,7 @@ class Firmeneintrag:
         self.request = request
         self.f = f
 
-        paginator = Paginator(f, 14)
+        paginator = Paginator(f, 17)
         page = request.GET.get('page')
 
         try:
