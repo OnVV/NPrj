@@ -3,6 +3,7 @@ from .forms import EintragFormular, Anfrage
 from .firm import Firmeneintrag
 from .search import Search
 import googlemaps
+import random
 
 geocode = dict()
 
@@ -19,9 +20,9 @@ def latLng(branche):
 def show(request, name):
 
     n = name
-    print(n)
     U = Firmeneintrag()
     f = U.loadFirma(n)
+    f = random.sample(f, len(f))
 
     geocode[n] = latLng(f)
     lat, lng = geocode[n]
@@ -145,9 +146,11 @@ def index(request):
 # ****FORM****
 def firmaForm(request):
     form = EintragFormular(request.POST)
-    if form.is_valid():
-        form.save(commit=True)
-        return render(request, 'nav/form_bestaetigung.html', {})
+
+    if request.POST.get("name"):
+        if form.is_valid():
+            form.save(commit=True)
+            return render(request, 'nav/form_bestaetigung.html', {})
     context = {
         'form': form,
     }
