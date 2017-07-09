@@ -43,12 +43,11 @@ class Firmeneintrag:
             x = Gartenbau.objects.all()
             pass
         else:
-            print('Wahr wohl nix, ihr luschen!!!')
+            print('***************************')
 
         x = list(x)
-        y = random.sample(x, len(x))
 
-        return y
+        return x
 
     def pagi(self, request, f):
 
