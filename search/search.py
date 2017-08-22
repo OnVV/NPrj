@@ -12,7 +12,6 @@ class Search:
 
         #Filter branche firmen laden
 
-
         #Branche nach plz und umliegenden plz filtern
         #Firmen abspreichern
         #Firmen laden bei

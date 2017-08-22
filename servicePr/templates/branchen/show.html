@@ -18,32 +18,48 @@
                     <!--<p>{{ firma_new.eMail }}</p>-->
                 <!--</div>-->
             <!--{% endfor %}-->
-        <h2>
-            <strong>{{ title }}</strong>
-
-            <button class="btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="background-color:#dfe3ee; color:black; position:absolute; right:0px;">
-                <b>Info</b>
-            </button>
-        </h2>
-    </div>
-
-    <div class="collapse" id="collapseExample" style="margin:50px;">
-        <div class="container" style="max-width:800px; margin-right:auto; margin-left:auto;">
-            <div class="col-sm-4 thumbnail" style="border:none;">
+        <div class="container" style="padding:50px; max-width:800px; margin-right:auto; margin-left:auto;">
+            <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
                 <p><img src="{% static 'img/infoIcon.png' %}" style="max-height:50px; margin-right:1px;"/></p>
                 <p style="margin:10px;">Kurzinfo über die einzelnen Unternehmen</p>
             </div>
-            <div class="col-sm-4 thumbnail" style="border:none;">
+            <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
                 <p></p>
                 <button class="btn">+ Unternehmen</button>
                 <p style="margin:10px;">Unternehmen in die Liste der Anfrage hinzufügen</p>
             </div>
-            <div class="col-sm-4 thumbnail" style="border:none;">
-                <p><img src="{% static 'img/mail.png' %}" style="max-height:50px; margin-right:1px;"/></p>
+            <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
+                <p><img src="{% static 'img/mail2.png' %}" style="max-height:50px; margin-right:1px;"/></p>
                 <p style="margin:10px;">Angebote vergleichen.</p>
             </div>
         </div>
+
+        <h2 style="padding-bottom:50px;">
+            <strong>{{ title }}</strong>
+
+            <!--<button class="btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="background-color:#dfe3ee; color:black; position:absolute; right:0px;">-->
+                <!--<b>Info</b>-->
+            <!--</button>-->
+        </h2>
     </div>
+
+    <!--<div class="collapse" id="collapseExample" style="margin:50px;">-->
+        <!--<div class="container" style="max-width:800px; margin-right:auto; margin-left:auto;">-->
+            <!--<div class="col-sm-4 thumbnail" style="border:none;">-->
+                <!--<p><img src="{% static 'img/infoIcon.png' %}" style="max-height:50px; margin-right:1px;"/></p>-->
+                <!--<p style="margin:10px;">Kurzinfo über die einzelnen Unternehmen</p>-->
+            <!--</div>-->
+            <!--<div class="col-sm-4 thumbnail" style="border:none;">-->
+                <!--<p></p>-->
+                <!--<button class="btn">+ Unternehmen</button>-->
+                <!--<p style="margin:10px;">Unternehmen in die Liste der Anfrage hinzufügen</p>-->
+            <!--</div>-->
+            <!--<div class="col-sm-4 thumbnail" style="border:none;">-->
+                <!--<p><img src="{% static 'img/mail.png' %}" style="max-height:50px; margin-right:1px;"/></p>-->
+                <!--<p style="margin:10px;">Angebote vergleichen.</p>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 <hr>
    {% if anz == 0 %}
         <div class="container">
@@ -83,6 +99,26 @@
             </div>
            {% endif %}
         </form>
+    <h4 style="font-family:arial; margin-bottom:50px;">
+        <div class="container" style="max-height:50px; text-align:center;">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if firma_new.has_previous %}
+                        <a href="?page={{ firma_new.previous_page_number }}"> < zurück </a>
+                    {% endif %}
+
+                    <span class="current">
+                        Seite {{ firma_new.number }} von {{ firma_new.paginator.num_pages }}.
+                    </span>
+
+                    {% if firma_new.has_next %}
+                        <a href="?page={{ firma_new.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </h4>
+
             {% for firma in firma_new %}
                  <div class="col-xs-6 col-md-3 col-sm-2" >
                     <div class="thumbnail" style="border:none;">
@@ -107,23 +143,6 @@
 
     </div>
 {% endif %}
-<div class="container">
-    <div class="pagination">
-        <span class="step-links">
-            {% if firma.has_previous %}
-                <a href="?page={{ firma.previous_page_number }}"> < back </a>
-            {% endif %}
-
-            <span class="current">
-                Seite {{ firma.number }} of {{ firma.paginator.num_pages }}.
-            </span>
-
-            {% if firma.has_next %}
-                <a href="?page={{ firma.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-    </div>
-</div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         function myFunction(objValue) {
