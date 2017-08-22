@@ -12,7 +12,7 @@ class GeoCoords:
         lng = []
 
         for adress in branche:
-            adressen = gmaps.geocode(adress.firm_adress + ' ' + adress.firm_plz)
+            adressen = gmaps.geocode(adress.ort + " " + str(adress.plz))
             lat.append(adressen[0]['geometry']['location']['lat'])
             lng.append(adressen[0]['geometry']['location']['lng'])
         return (lat, lng)

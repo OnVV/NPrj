@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from servicePrMail.forms import EintragFormular, Anfrage
-from .firm import Firmeneintrag, Firmenenitrag_new
+from .firm import Firmeneintrag_new
 from .search import Search
 from googleMapsAPI.geocoords import GeoCoords
 import googlemaps
@@ -14,7 +14,7 @@ def index(request):
         s = request.POST.get("select")
         q = request.POST.get("query")
 
-        firma = Firmenenitrag_new()
+        firma = Firmeneintrag_new()
         firma_new = firma.loadF(s)
         print('Test1: ', firma_new)
 
@@ -24,17 +24,13 @@ def index(request):
         # if q < '1000' or q > '10000':
         #     return render(request, 'home.html')
 
-        x = Firmeneintrag()
-        indexFirm = x.loadFirma(s)
-
         geo = GeoCoords()
-        geocode[s] = geo.latLng(indexFirm)
+        geocode[s] = geo.latLng(firma_new)
         lat, lng = geocode[s]
-        contacts = x.pagi(request, indexFirm)
-        anz = counter(indexFirm)
+        contacts = firma.pagi(request, firma_new)
+        anz = counter(firma_new)
 
         form = Anfrage()
-
         if request.POST:
             form = Anfrage(request.POST)
             if form.is_valid():
@@ -42,33 +38,31 @@ def index(request):
 
         else:
             query = int(q)
-            search = Search()
-            firm_list = search.plz(query, s)
-            contacts = x.pagi(request, firm_list)
+            # search = Search()
+            # firm_list = search.plz(query, s)
+            # contacts = x.pagi(request, firm_list)
 
             context = {
                 'title': s,
                 'firma': firm_list,
-                'firma': contacts,
+                #'firma': contacts,
                 'firma_new': firma_new,
                 'form': form,
                 'lat': lat,
                 'lng': lng,
                 'anz': anz,
-                'firma_new': firma_new,
             }
 
             return render(request, 'branchen/show.html', context)
 
         context = {
             'title': s,
-            'firma': x,
+            'firma_new': firma_new,
             'firma': contacts,
             'form': form,
             'lat': lat,
             'lng': lng,
             'anz': anz,
-            'firma_new': firma_new,
         }
 
         return render(request, 'branchen/show.html', context)
@@ -82,18 +76,17 @@ def show(request, name):
 
     n = name
 
-    firma = Firmenenitrag_new()
+    firma = Firmeneintrag_new()
     firma_new = firma.loadF(n)
     print('Test1: ', firma_new)
 
-    U = Firmeneintrag()
-    f = U.loadFirma(n)
+    f = firma_new
     f = random.sample(f, len(f))
 
     geo = GeoCoords()
     geocode[n] = geo.latLng(f)
     lat, lng = geocode[n]
-    contacts = U.pagi(request, f)
+    contacts = firma.pagi(request, f)
     anz = counter(f)
 
     form = Anfrage()
@@ -123,13 +116,13 @@ def show(request, name):
 
             search = Search()
             firm_list = search.plz(y, n)
-            contacts = U.pagi(request, firm_list)
+            contacts = f.pagi(request, firm_list)
 
             context = {
                 'title': n,
-                'firma': firm_list,
-                'firma': contacts,
-                'firma_new': firma_new,
+                'firma_new': firm_list,
+                'firma_new': contacts,
+                'firma_new': f,
                 'form': form,
                 'lat': lat,
                 'lng': lng,
@@ -140,8 +133,8 @@ def show(request, name):
 
     context = {
         'title': n,
-        'firma': f,
-        'firma': contacts,
+        'firma_new': f,
+        'firma_new': contacts,
         'form': form,
         'lat': lat,
         'lng': lng,

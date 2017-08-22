@@ -19,6 +19,6 @@ class Firma(models.Model):
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True, blank=True)
 
     def __str__(self):
-        return self.name + ' - ' + self.eMail
+        return str(self.timestamp) + " - " + self.name + ' - ' + self.eMail + "   --------------   %s   " % self.branche
 
 

@@ -11,9 +11,7 @@ class Search:
         self.range_list = range_list
 
         #Filter branche firmen laden
-        firma = Firma.objects.all()
-        firma = firma.filter(branche=self.branche)
-        firma = firma.filter(plz__contains=range_list)
+
 
         #Branche nach plz und umliegenden plz filtern
         #Firmen abspreichern

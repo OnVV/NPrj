@@ -1,10 +1,9 @@
-from .models import Umzug, Reinigung, Maler, Catering, Baufirma
-from .models import Sanitaer, Gartenbau, Architekt, Schreiner, Immobilien
-from .models_new import Firma
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .models_new import Firma
 import random
 
-class Firmenenitrag_new:
+class Firmeneintrag_new:
+
     def __init__(self):
         self.data = []
 
@@ -20,52 +19,6 @@ class Firmenenitrag_new:
         firm_list = firm.filter(branche=branche_auswahl)
 
         return firm_list
-
-class Firmeneintrag:
-
-    def __init__(self):
-        self.data = []
-
-    def loadFirma(self, name):
-
-        self.name = name
-
-        if name == 'Umzug':
-            firma = Umzug.objects.all()
-            pass
-        elif name == 'Reinigung':
-            firma = Reinigung.objects.all()
-            pass
-        elif name == 'Maler':
-            firma = Maler.objects.all()
-            pass
-        elif name == 'Baufirma':
-            firma = Baufirma.objects.all()
-            pass
-        elif name == 'Catering':
-            firma = Catering.objects.all()
-            pass
-        elif name == 'Architekt':
-            firma = Architekt.objects.all()
-            pass
-        elif name == 'Sanitaer':
-            firma = Sanitaer.objects.all()
-            pass
-        elif name == 'Schreiner':
-            firma = Schreiner.objects.all()
-            pass
-        elif name == 'Immobilien':
-            firma = Immobilien.objects.all()
-            pass
-        elif name == 'Gartenbau':
-            firma = Gartenbau.objects.all()
-            pass
-        else:
-            print('***************************')
-
-        firma = list(firma)
-
-        return firma
 
     def pagi(self, request, f):
 
