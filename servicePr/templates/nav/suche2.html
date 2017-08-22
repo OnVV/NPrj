@@ -1,10 +1,10 @@
 {% load staticfiles %}
-    <div  class="container">
-        <div style="max-width:450px;  margin-right:auto; margin-left:auto;">
-            <form method="POST" action="">{% csrf_token %}
-                <input type="number" class="form-control" name="query" placeholder="Nach PLZ filtern" style="height:50px; float:right; text-align:center;">
-                <input type="hidden" value="{{ title }}" name="select">
-                <button type="submit" class="form-control" class="button" style="background-color:#2F4F4F; color:white; height:50px; border:none; float:right;">Suchen</button>
-            </form>
-        </div>
+<div  class="container">
+    <div style="max-width:450px; margin-top:50px; margin-right:auto; margin-left:auto;">
+        <form method="POST" action="">{% csrf_token %}
+            <input type="text" maxlength="4" class="form-control" name="query" placeholder="Nach PLZ filtern" style="height:50px; float:right; text-align:center; border:none;" autofocus>
+            <input type="hidden" value="{{ title }}" name="select">
+            <button type="submit" class="form-control" class="button" style="background-color:#dfe3ee; height:50px; border:none; float:right;"><strong>Suchen</strong></button>
+        </form>
     </div>
+</div>

@@ -1,6 +1,6 @@
  <!-- Static navbar -->
     <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
+      <div class="container" style="width:100%; background-color:#ffffff;">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -12,11 +12,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="#about"></a></li>
-            <li><a href="#contact">Kontakt</a></li>
+            <li><a href="/"><strong>Home</strong></a></li>
+            <li><a href="#contact"><strong>Kontakt</strong></a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>mehr.. </strong><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Über uns</a></li>
                 <li><a href="#">Kundendienst</a></li>
@@ -24,13 +23,13 @@
                 <li><a href="#">AGB</a></li>
 
                 <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
+                <li class="dropdown-header">Mitglied werden:</li>
+                <li><a href="{% url 'firmaForm' %}">Firma eintragen</a></li>
               </ul>
             </li>
           </ul>
           <a href="{% url 'firmaForm' %}">
-            <button type="button" class="button" style="border-radius:5px; float:right; margin:5px; background-color:#2F4F4F; color:white; height:50px; border:none;">Firma eintragen</button>
+            <button type="button" class="button" style="border-radius:5px; float:right; margin:5px; background-color:#8b9dc3; color:white; height:50px; border:none;"><strong>Firma eintragen</strong></button>
           </a>
         </div>
       </div>

@@ -1,16 +1,17 @@
 #googlemaps{
     width:100%;
 }
+
 #suche{
     height:200px;
     margin-top:100px;
 }
 
-
 #footer{
     height:300px;
     width:100%;
 }
+
 #footerfont{
     float:right;
     font-color:white;
@@ -18,8 +19,7 @@
 }
 
 #bimg{
-    background-image: url('img/winter2.jpg');
-    height: 420px;
+    background-image: url('img/winter4.jpg');
 }
 
 #header_pic{
@@ -36,7 +36,6 @@
     color:black;
     text-decoration:none;
     text-align:center;
-    background-color:
 }
 
 .nav_icons_deco:hover{
@@ -45,6 +44,7 @@
     text-decoration:none;
     border:none;
 }
+
 #infos{
     width:75%;
     max-width:80%;
@@ -54,7 +54,6 @@
 
 // Class
 .center-block {
-  display: block;
   margin-left: auto;
   margin-right: auto;
 }

@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'servicePr',
     'captcha',
+    'servicePrMail',
+    'googleMapsAPI',
+    'search',
 ]
 
 MIDDLEWARE = [

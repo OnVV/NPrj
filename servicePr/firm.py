@@ -1,7 +1,25 @@
 from .models import Umzug, Reinigung, Maler, Catering, Baufirma
 from .models import Sanitaer, Gartenbau, Architekt, Schreiner, Immobilien
+from .models_new import Firma
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import random
+
+class Firmenenitrag_new:
+    def __init__(self):
+        self.data = []
+
+    def loadF(self, name):
+        self.name = name
+
+        branchen = {'Umzug': 1, 'Reinigung': 2, 'Maler': 3, 'Baufirma': 4, 'Architekt': 5,
+                    'Catering': 6, 'Schreiner': 7, 'Gartenbau': 8, 'Immobilien': 9, 'Sanitaer': 10, }
+
+        branche_auswahl = branchen.get(self.name)
+
+        firm = Firma.objects.all()
+        firm_list = firm.filter(branche=branche_auswahl)
+
+        return firm_list
 
 class Firmeneintrag:
 
@@ -13,48 +31,48 @@ class Firmeneintrag:
         self.name = name
 
         if name == 'Umzug':
-            x = Umzug.objects.all()
+            firma = Umzug.objects.all()
             pass
         elif name == 'Reinigung':
-            x = Reinigung.objects.all()
+            firma = Reinigung.objects.all()
             pass
         elif name == 'Maler':
-            x = Maler.objects.all()
+            firma = Maler.objects.all()
             pass
         elif name == 'Baufirma':
-            x = Baufirma.objects.all()
+            firma = Baufirma.objects.all()
             pass
         elif name == 'Catering':
-            x = Catering.objects.all()
+            firma = Catering.objects.all()
             pass
         elif name == 'Architekt':
-            x = Architekt.objects.all()
+            firma = Architekt.objects.all()
             pass
         elif name == 'Sanitaer':
-            x = Sanitaer.objects.all()
+            firma = Sanitaer.objects.all()
             pass
         elif name == 'Schreiner':
-            x = Schreiner.objects.all()
+            firma = Schreiner.objects.all()
             pass
         elif name == 'Immobilien':
-            x = Immobilien.objects.all()
+            firma = Immobilien.objects.all()
             pass
         elif name == 'Gartenbau':
-            x = Gartenbau.objects.all()
+            firma = Gartenbau.objects.all()
             pass
         else:
             print('***************************')
 
-        x = list(x)
+        firma = list(firma)
 
-        return x
+        return firma
 
     def pagi(self, request, f):
 
         self.request = request
         self.f = f
 
-        paginator = Paginator(f, 17)
+        paginator = Paginator(f, 10)
         page = request.GET.get('page')
 
         try:

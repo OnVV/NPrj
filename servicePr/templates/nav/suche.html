@@ -1,54 +1,53 @@
 {% load staticfiles %}
-<div class="thumbnail" id="bimg">
-    <div  class="container">
-        <div style="max-width:450px; margin-top:150px; margin-right:auto; margin-left:auto;">
-                <form action="" method="POST">{% csrf_token %}
-                    <select class="form-control" name="select">
-                        <div class="nav navbar-nav hidden-xs">
-                            <option value="X" selected="selected">
-                               Branche auswählen:
-                            </option>
-                            <option value="Umzug">
-                                Umzug
-                            </option>
+<div class="thumbnail" id="bimg" style="">
+        <div style="max-width:450px; margin-top:200px; margin-bottom:200px; margin-right:auto; margin-left:auto;">
+            <form action="" method="POST">{% csrf_token %}
+                <select class="form-control btn" name="select" style="text-align:center;">
+                    <div class="nav navbar-nav hidden-xs">
+                        <option value="X" selected="selected">
+                           Branche auswählen:
+                        </option>
+                        <option value="Umzug">
+                            Umzug
+                        </option>
+                        <option value="Reinigung">
+                            Reinigung
+                        </option>
+                        <option value="Maler">
+                            Maler
+                        </option>
 
-                            <option value="Reinigung">
-                                Reinigung
-                            </option>
+                        <option value="Catering">
+                            Catering
+                        </option>
 
-                            <option value="Maler">
-                                Maler
-                            </option>
+                        <option value="Schreiner">
+                            Schreiner
+                        </option>
 
-                            <option value="Catering">
-                                Catering
-                            </option>
-                            <option value="Schreiner">
-                                Schreiner
-                            </option>
-                            <option value="Architekt">
-                                Architekt
-                            </option>
-                            <option value="Gartenbau">
-                                Gartenbau
-                            </option>
+                        <option value="Architekt">
+                            Architekt
+                        </option>
 
-                            <option value="Sanitaer">
-                                Sanitär
-                            </option>
+                        <option value="Gartenbau">
+                            Gartenbau
+                        </option>
 
-                            <option value="Baufirma">
-                                Baufirma
-                            </option>
+                        <option value="Sanitaer">
+                            Sanitär
+                        </option>
 
-                            <option value="Immobilien">
-                                Immobilien
-                            </option>
-                        </div>
-                    </select>
-                        <input type="text" name="query" class="form-control" placeholder="8000" style="height:50px;">
-                        <button type="submit" class="form-control" class="button" style="background-color:#2F4F4F; color:white; height:50px; border:none;">Suchen</button>
-                </form>
+                        <option value="Baufirma">
+                            Baufirma
+                        </option>
+
+                        <option value="Immobilien">
+                            Immobilien
+                        </option>
+                    </div>
+                </select>
+                    <input type="text" maxlength="4" name="query" class="form-control" placeholder="8000" style="height:50px; text-align:center;" autofocus>
+                    <button type="submit" class="form-control" class="button" style="background-color:#8b9dc3; height:50px; border:none; color:white;"><strong>Suchen</strong></button>
+            </form>
         </div>
-    </div>
 </div>
