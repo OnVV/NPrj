@@ -1,5 +1,6 @@
 import googlemaps
 
+
 class GeoCoords:
 
     def __init__(self):

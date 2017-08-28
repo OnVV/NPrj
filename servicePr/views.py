@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from servicePrMail.forms import EintragFormular, Anfrage
 from .firm import Firmeneintrag_new
-from .search import Search
+from search import search_plz
 from googleMapsAPI.geocoords import GeoCoords
 import googlemaps
 import random
@@ -11,18 +11,17 @@ geocode = dict()
 def index(request):
 
     if request.POST:
-        s = request.POST.get("select")
-        q = request.POST.get("query")
-
-        firma = Firmeneintrag_new()
-        firma_new = firma.loadF(s)
-        print('Test1: ', firma_new)
+        try:
+            s = request.POST.get('select')
+            q = request.POST.get('query')
+        except:
+            print("ERROR")
 
         if s == 'X':
             return render(request, 'home.html')
 
-        # if q < '1000' or q > '10000':
-        #     return render(request, 'home.html')
+        firma = Firmeneintrag_new()
+        firma_new = firma.loadF(s)
 
         geo = GeoCoords()
         geocode[s] = geo.latLng(firma_new)
@@ -31,33 +30,20 @@ def index(request):
         anz = counter(firma_new)
 
         form = Anfrage()
-        if request.POST:
+        if request.POST.get(''):
             form = Anfrage(request.POST)
             if form.is_valid():
                 form.save(commit=True)
 
-        else:
-            query = int(q)
-            # search = Search()
-            # firm_list = search.plz(query, s)
-            # contacts = x.pagi(request, firm_list)
-
-            context = {
-                'title': s,
-                'firma': firm_list,
-                #'firma': contacts,
-                'firma_new': firma_new,
-                'form': form,
-                'lat': lat,
-                'lng': lng,
-                'anz': anz,
-            }
-
-            return render(request, 'branchen/show.html', context)
+        if q:
+            search = search_plz.Search()
+            res = search.filter_plz(firma_new, q)
+            firma_search = res
 
         context = {
             'title': s,
             'firma_new': firma_new,
+            'search_res': firma_search,
             'firma': contacts,
             'form': form,
             'lat': lat,
@@ -75,13 +61,13 @@ def index(request):
 def show(request, name):
 
     n = name
+    req_name = request.POST.get("name")
+    q = request.POST.get("query")
 
     firma = Firmeneintrag_new()
     firma_new = firma.loadF(n)
-    print('Test1: ', firma_new)
 
-    f = firma_new
-    f = random.sample(f, len(f))
+    f = random.sample(firma_new, len(firma_new))
 
     geo = GeoCoords()
     geocode[n] = geo.latLng(f)
@@ -90,39 +76,19 @@ def show(request, name):
     anz = counter(f)
 
     form = Anfrage()
-    if request.POST:
+    if req_name:
         form = Anfrage(request.POST)
         if form.is_valid():
             form.save(commit=True)
 
-    else:
-        if request.POST.get("query"):
+    if q:
+        y = int(q)
 
-            s = request.POST.get("query")
-            y = int(s)
-
-            if s == '' or y < 1000 or y > 10000:
-                context = {
-                    'title': n,
-                    'firma': f,
-                    'firma': contacts,
-                    'form': form,
-                    'lat': lat,
-                    'lng': lng,
-                    'anz': anz,
-                }
-
-                return render(request, 'branchen/show.html', context)
-
-            search = Search()
-            firm_list = search.plz(y, n)
-            contacts = f.pagi(request, firm_list)
-
+        if q == '' or y < 1000 or y > 10000:
             context = {
                 'title': n,
-                'firma_new': firm_list,
-                'firma_new': contacts,
                 'firma_new': f,
+                'search_res': search,
                 'form': form,
                 'lat': lat,
                 'lng': lng,
@@ -130,6 +96,23 @@ def show(request, name):
             }
 
             return render(request, 'branchen/show.html', context)
+
+        search = search_plz.Search()
+        firm_list = search.filter_plz(firma_new, y)
+        #contacts = f.pagi(request, firm_list)
+
+        context = {
+            'title': n,
+            'firma_new': firm_list,
+            #'firma_new': contacts,
+            'firma_new': f,
+            'form': form,
+            'lat': lat,
+            'lng': lng,
+            'anz': anz,
+        }
+
+        return render(request, 'branchen/show.html', context)
 
     context = {
         'title': n,

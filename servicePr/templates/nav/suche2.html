@@ -4,7 +4,7 @@
         <form method="POST" action="">{% csrf_token %}
             <input type="text" maxlength="4" class="form-control" name="query" placeholder="Nach PLZ filtern" style="height:50px; float:right; text-align:center; border:none;" autofocus>
             <input type="hidden" value="{{ title }}" name="select">
-            <button type="submit" class="form-control" class="button" style="background-color:#dfe3ee; height:50px; border:none; float:right;"><strong>Suchen</strong></button>
+            <button type="submit" value="search" class="form-control" class="button" style="background-color:#dfe3ee; height:50px; border:none; float:right;"><strong>Suchen</strong></button>
         </form>
     </div>
 </div>

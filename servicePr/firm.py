@@ -14,9 +14,7 @@ class Firmeneintrag_new:
                     'Catering': 6, 'Schreiner': 7, 'Gartenbau': 8, 'Immobilien': 9, 'Sanitaer': 10, }
 
         branche_auswahl = branchen.get(self.name)
-
-        firm = Firma.objects.all()
-        firm_list = firm.filter(branche=branche_auswahl)
+        firm_list = Firma.objects.filter(branche=branche_auswahl)
 
         return firm_list
 
