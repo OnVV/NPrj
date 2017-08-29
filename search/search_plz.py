@@ -1,6 +1,5 @@
-from servicePr.firm import Firmeneintrag_new
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
-from servicePr.models_new import Firma
+from django.db.models import Q
 
 class Search:
 
@@ -11,6 +10,9 @@ class Search:
 
         # vector = SearchVector('plz')
         # query = SearchQuery(self.search_input)
-        branch_firms = firm_list.filter(plz__icontains=self.search_input) #.annotate(rank=SearchRank(vector, query))
+
+        branch_firms = firm_list.filter(Q(plz__lte=int(self.search_input)+1000),
+                                        Q(plz__gte=int(self.search_input)-1000)
+                                        )#.annotate(rank=SearchRank(vector, query))
 
         return branch_firms

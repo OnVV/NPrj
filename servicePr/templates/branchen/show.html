@@ -3,7 +3,7 @@
 
 {% block title %}
 <hr>
-    <div style="position:absolut; heigth:300px; width:100%; background-color:#6497b1; color:#ffffff;">
+    <div style="position:absolut; heigth:250px; width:100%; background-color:#005b96; color:#ffffff;">
         <div class="container" style="padding:50px; max-width:800px; margin-right:auto; margin-left:auto;">
             <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
                 <p><img src="{% static 'img/infoIcon.png' %}" style="max-height:50px; margin-right:1px;"/></p>
@@ -19,7 +19,6 @@
                 <p style="margin:10px;">Angebote vergleichen.</p>
             </div>
         </div>
-
         <h2 style="padding-bottom:50px;">
             <strong>{{ title }}</strong>
         </h2>
@@ -110,7 +109,7 @@
                         <img src='{{ firma.firm_logo.url }}' class="img-responsive" alt="Responsive image" style="max-height:100%;" />
                     </div>
                     <div class="thumbnail">
-                        <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="{{ firma.name }} {{ firma.plz }} {{ firma.ort }} ................................................." data-content="{{ firma.beschreibung }}" />
+                        <a class="thumbnail" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="{{ firma.name }} {{ firma.plz }} {{ firma.ort }} ................................................." data-content="{{ firma.beschreibung }}" />
                             <img src="{% static 'img/infoIcon.png' %}" style="max-height:50px; margin-right:1px;"/>
                         </a>
                         <p>{{ firma.branche }}</p>

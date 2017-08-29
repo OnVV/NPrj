@@ -9,6 +9,8 @@ import random
 geocode = dict()
 
 def index(request):
+    
+    firma = Firmeneintrag_new()
 
     if request.POST:
         try:
@@ -20,7 +22,6 @@ def index(request):
         if s == 'X':
             return render(request, 'home.html')
 
-        firma = Firmeneintrag_new()
         firma_new = firma.loadF(s)
 
         geo = GeoCoords()
@@ -88,7 +89,6 @@ def show(request, name):
             context = {
                 'title': n,
                 'firma_new': f,
-                'search_res': search,
                 'form': form,
                 'lat': lat,
                 'lng': lng,
@@ -99,13 +99,12 @@ def show(request, name):
 
         search = search_plz.Search()
         firm_list = search.filter_plz(firma_new, y)
-        #contacts = f.pagi(request, firm_list)
+        contacts = firma.pagi(request, firm_list)
 
         context = {
             'title': n,
-            'firma_new': firm_list,
-            #'firma_new': contacts,
-            'firma_new': f,
+            'firma_new': contacts,
+            'search_res': firm_list,
             'form': form,
             'lat': lat,
             'lng': lng,
