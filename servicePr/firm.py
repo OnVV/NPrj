@@ -34,5 +34,4 @@ class Firmeneintrag_new:
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             sites = paginator.page(paginator.num_pages)
-
         return sites

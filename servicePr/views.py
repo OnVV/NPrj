@@ -3,13 +3,14 @@ from servicePrMail.forms import EintragFormular, Anfrage
 from .firm import Firmeneintrag_new
 from search import search_plz
 from googleMapsAPI.geocoords import GeoCoords
+from .models_new import Firma
 import googlemaps
 import random
 
 geocode = dict()
 
 def index(request):
-    
+
     firma = Firmeneintrag_new()
 
     if request.POST:
@@ -27,7 +28,7 @@ def index(request):
         geo = GeoCoords()
         geocode[s] = geo.latLng(firma_new)
         lat, lng = geocode[s]
-        contacts = firma.pagi(request, firma_new)
+        pagi = firma.pagi(request, firma_new)
         anz = counter(firma_new)
 
         form = Anfrage()
@@ -40,17 +41,33 @@ def index(request):
             search = search_plz.Search()
             res = search.filter_plz(firma_new, q)
             firma_search = res
+            geocode[s] = geo.latLng(firma_search)
+            lat, lng = geocode[s]
 
-        context = {
-            'title': s,
-            'firma_new': firma_new,
-            'search_res': firma_search,
-            'firma': contacts,
-            'form': form,
-            'lat': lat,
-            'lng': lng,
-            'anz': anz,
-        }
+            context = {
+                'title': s,
+                'firma_new': firma_new,
+                'search_res': firma_search,
+                'query': q,
+                'firma': pagi,
+                'form': form,
+                'lat': lat,
+                'lng': lng,
+                'anz': anz,
+            }
+            
+        else:
+
+            context = {
+                'title': s,
+                'firma_new': firma_new,
+                'query': q,
+                'firma': pagi,
+                'form': form,
+                'lat': lat,
+                'lng': lng,
+                'anz': anz,
+            }
 
         return render(request, 'branchen/show.html', context)
 
@@ -73,7 +90,7 @@ def show(request, name):
     geo = GeoCoords()
     geocode[n] = geo.latLng(f)
     lat, lng = geocode[n]
-    contacts = firma.pagi(request, f)
+    pagi = firma.pagi(request, f)
     anz = counter(f)
 
     form = Anfrage()
@@ -99,12 +116,15 @@ def show(request, name):
 
         search = search_plz.Search()
         firm_list = search.filter_plz(firma_new, y)
-        contacts = firma.pagi(request, firm_list)
+        pagi = firma.pagi(request, firm_list)
+        geocode[req_name] = geo.latLng(firm_list)
+        lat, lng = geocode[req_name]
 
         context = {
             'title': n,
-            'firma_new': contacts,
+            'firma_new': pagi,
             'search_res': firm_list,
+            'query': q,
             'form': form,
             'lat': lat,
             'lng': lng,
@@ -116,7 +136,7 @@ def show(request, name):
     context = {
         'title': n,
         'firma_new': f,
-        'firma_new': contacts,
+        'firma_new': pagi,
         'form': form,
         'lat': lat,
         'lng': lng,
@@ -128,8 +148,9 @@ def show(request, name):
 
 # ****FORM****
 def firmaForm(request):
-    form = EintragFormular(request.POST)
+    form = EintragFormular()
     if request.POST.get("name"):
+        form = EintragFormular(request.POST)
         if form.is_valid():
             form.save(commit=True)
             return render(request, 'nav/form_bestaetigung.html', {})

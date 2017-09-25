@@ -3,28 +3,29 @@
 
 {% block title %}
 <hr>
-    <div style="position:absolut; heigth:250px; width:100%; background-color:#005b96; color:#ffffff;">
-        <div class="container" style="padding:50px; max-width:800px; margin-right:auto; margin-left:auto;">
-            <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
-                <p><img src="{% static 'img/infoIcon.png' %}" style="max-height:50px; margin-right:1px;"/></p>
-                <p style="margin:10px;">Kurzinfo über die einzelnen Unternehmen</p>
-            </div>
-            <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
-                <p></p>
-                <button class="btn">+ Unternehmen</button>
-                <p style="margin:10px;">Unternehmen in die Liste der Anfrage hinzufügen</p>
-            </div>
-            <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
-                <p><img src="{% static 'img/mail2.png' %}" style="max-height:50px; margin-right:1px;"/></p>
-                <p style="margin:10px;">Angebote vergleichen.</p>
-            </div>
+    <div class="container" style="padding:50px; max-width:800px; margin-right:auto; margin-left:auto;">
+        <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
+            <p><img src="{% static 'img/infoIcon.png' %}" style="max-height:50px; margin-right:1px;"/></p>
+            <p style="margin:10px;">Kurzinfo über die einzelnen Unternehmen</p>
         </div>
-        <h2 style="padding-bottom:50px;">
+        <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
+            <p></p>
+            <button class="btn">+ Unternehmen</button>
+            <p style="margin:10px;">Unternehmen in die Liste der Anfrage hinzufügen</p>
+        </div>
+        <div class="col-sm-4 thumbnail" style="border:none; background-color:transparent;">
+            <p><img src="{% static 'img/mail2.png' %}" style="max-height:50px; margin-right:1px;"/></p>
+            <p style="margin:10px;">Angebote vergleichen.</p>
+        </div>
+    </div>
+<hr>
+    <div style="position:absolut; width:100%; background-color:#005b96; color:#ffffff;">
+        <h2>
             <strong>{{ title }}</strong>
         </h2>
     </div>
 <hr>
-   {% if anz == 0 %}
+    {% if anz == 0 %}
         <div class="container">
             <br><br>
             <h3>Zurzeit keine Einträge!</h3>
@@ -37,7 +38,13 @@
     {% include 'nav/googleMarker.html' %}
 <body onload="loadMap()">
 {% if anz > 0 %}
-
+        {% if query %}
+        <div class="container">
+            <div style="max-width:170px; margin-right:auto; margin-left:auto;">
+                <p> --- Suche Umkreis: <strong>{{ query }}</strong> ---</p>
+            </div>
+        </div>
+        {% endif %}
     <div class="container" style="margin-top:100px;">
         <form method="POST" action="">{% csrf_token %}
            {% if form %}
@@ -49,12 +56,12 @@
                 <p><strong>2</strong> - Fromular ausfüllen & Firmen hinzufügen</p>
                 <p><strong>3</strong> - Angebote vergleichen / Auftrag erteilen.</p>
                 <br><hr>
-                {{ form }}
+                {{ form.as_table }}
                     <div class="container thumbnail" style="max-width:100%; margin-top:20px;">
                         <h4>Anfrage senden an:</h4>
-                        {% for firma in firma %}
+                        {% for firma in firma_new %}
                             <strong id="str">
-                               <a><p id="{{ firma.id }}" class="thumbnail btn" style="border-radius:3px; max-width:250px; text-align:center;"></p></a>
+                               <a><p id="{{ firma.id }}" class="btn" style="border-radius:3px; max-width:250px; text-align:center;"></p></a>
                             </strong>
                         {% endfor %}
                     </div>
@@ -62,25 +69,7 @@
             </div>
            {% endif %}
         </form>
-    <h4 style="font-family:arial; margin-bottom:50px;">
-        <div class="container" style="max-height:50px; text-align:center;">
-            <div class="pagination">
-                <span class="step-links">
-                    {% if firma_new.has_previous %}
-                        <a href="?page={{ firma_new.previous_page_number }}"> < zurück </a>
-                    {% endif %}
 
-                    <span class="current">
-                        Seite {{ firma_new.number }} von {{ firma_new.paginator.num_pages }}.
-                    </span>
-
-                    {% if firma_new.has_next %}
-                        <a href="?page={{ firma_new.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
-            </div>
-        </div>
-    </h4>
     {% if search_res == Null %}
         {% for firma in firma_new %}
              <div class="col-xs-6 col-md-3 col-sm-2" >
@@ -122,6 +111,26 @@
              </div>
         {% endfor %}
     {% endif %}
+    <h4 style="font-family:arial; margin:10px;">
+        <div class="container" style="max-height:50px; text-align:center;">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if firma_new.has_previous %}
+                        <a href="?page={{ firma_new.previous_page_number }}">zurück </a>
+                    {% endif %}
+
+                    <span class="current">
+                        Seite {{ firma_new.number }} von {{ firma_new.paginator.num_pages }}.
+                    </span>
+
+                    {% if firma_new.has_next %}
+                        <a href="?page={{ firma_new.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Branche auswählen" data-toggle="tooltip" data-placement="left" style="cursor:pointer; position:fixed; bottom:20px; right:20px; display:none;"><span class="glyphicon glyphicon-chevron-up"></span></a>
+    </h4>
 
 
     <div id="pop3"></div>
@@ -130,26 +139,50 @@
 {% endif %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+
         function myFunction(objValue) {
+
             var i = 0;
-            {% for firma in firma %}
-                if("{{ firma.firm_name }}" == objValue.value){
-                    e = document.getElementById("{{ firma.id }}")
+            {% for firm in firma_new %}
+
+                if("{{ firm.name }}" == objValue.value){
+                    e = document.getElementById("{{ firm.id }}")
                     e.innerHTML = "+" + objValue.value;
               }
-
             {% endfor %}
+
         }
-            $(document).ready(function(){
-                $("remove").click(function(){
-                    $(this).remove();
+
+        $(document).ready(function(){
+         $(window).scroll(function () {
+                if ($(this).scrollTop() > 50) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+            // scroll body to 0px on click
+            $('#back-to-top').click(function () {
+                $('#back-to-top').tooltip('hide');
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
             });
 
-            $(function () {
-                var options = {'style':'width:200px'};
-                $('[data-toggle="popover"]').popover( options )
-               });
-         });
+            $('#back-to-top').tooltip('show');
+
+    });
+
+        <!--$(document).ready(function(){-->
+            <!--$("remove").click(function(){-->
+                <!--$(this).remove();-->
+        <!--});-->
+
+        <!--$(function () {-->
+            <!--var options = {'style':'width:400px'};-->
+            <!--$('[data-toggle="popover"]').popover( options )-->
+           <!--});-->
     </script>
 </body>
 {% endblock %}

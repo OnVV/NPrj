@@ -8,7 +8,7 @@ class OffertenAnfrage(models.Model):
     name = models.CharField(db_index=True, max_length=200, null=True)
     plz = models.IntegerField(db_index=True)
     ort = models.CharField(db_index=True, max_length=200, null=True)
-    tel= models.CharField(db_index=True, max_length=200, null=True)
+    tel = models.CharField(db_index=True, max_length=200, null=True)
     beschreibung = models.TextField()
     eMail = models.CharField(db_index=True, max_length=200, null=True)
 

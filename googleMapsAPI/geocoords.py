@@ -1,13 +1,12 @@
 import googlemaps
 
-
 class GeoCoords:
 
     def __init__(self):
         self.data = []
 
     def latLng(self, branche):
-        self.branche = branche
+
         gmaps = googlemaps.Client(key='AIzaSyBCqMzTBiROM7g3PcHaG-PY2vTqXYYtWhU')
         lat = []
         lng = []
