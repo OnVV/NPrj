@@ -132,7 +132,6 @@
         <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Branche auswählen" data-toggle="tooltip" data-placement="left" style="cursor:pointer; position:fixed; bottom:20px; right:20px; display:none;"><span class="glyphicon glyphicon-chevron-up"></span></a>
     </h4>
 
-
     <div id="pop3"></div>
 
     </div>
@@ -142,7 +141,6 @@
 
         function myFunction(objValue) {
 
-            var i = 0;
             {% for firm in firma_new %}
 
                 if("{{ firm.name }}" == objValue.value){
@@ -150,17 +148,26 @@
                     e.innerHTML = "+" + objValue.value;
               }
             {% endfor %}
-
         }
 
-        $(document).ready(function(){
-         $(window).scroll(function () {
+            //scroll to top function
+            $(document).ready(function(){
+             $(window).scroll(function () {
                 if ($(this).scrollTop() > 50) {
                     $('#back-to-top').fadeIn();
                 } else {
                     $('#back-to-top').fadeOut();
                 }
             });
+
+            //scroll body to title
+            $('#search_show').ready(function (){
+                $('body,html').animate({
+                    scrollTop: 650
+                }, 800);
+                return false;
+            });
+
             // scroll body to 0px on click
             $('#back-to-top').click(function () {
                 $('#back-to-top').tooltip('hide');
@@ -171,18 +178,8 @@
             });
 
             $('#back-to-top').tooltip('show');
+            });
 
-    });
-
-        <!--$(document).ready(function(){-->
-            <!--$("remove").click(function(){-->
-                <!--$(this).remove();-->
-        <!--});-->
-
-        <!--$(function () {-->
-            <!--var options = {'style':'width:400px'};-->
-            <!--$('[data-toggle="popover"]').popover( options )-->
-           <!--});-->
     </script>
 </body>
 {% endblock %}
