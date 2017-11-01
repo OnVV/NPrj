@@ -1,0 +1,87 @@
+#googlemaps{
+    width:100%;
+}
+
+#suche{
+    height:200px;
+    margin-top:100px;
+}
+
+#footer{
+    height:300px;
+    width:100%;
+}
+
+#footerfont{
+    float:right;
+    font-color:white;
+    background-color:grey;
+}
+
+#bimg{
+    background-image: url('img/network.png');
+}
+
+#header_pic{
+    margin-right: 0em;
+    margin-left: 0em;
+}
+
+.info{
+    height: 100px;
+    margin-left:120px;
+}
+
+.nav_icons_deco{
+    color:black;
+    text-decoration:none;
+    text-align:center;
+}
+
+.nav_icons_deco:hover{
+    background-color:grey;
+    color:white;
+    text-decoration:none;
+    border:none;
+}
+
+#infos{
+    width:75%;
+    max-width:80%;
+    margin-left:20px;
+    margin-top:50px;
+}
+
+// Class
+.center-block {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Usage as a mixin
+.element {
+  .center-block();
+}
+
+.search-icon{
+    width:40px;
+    height:40px;
+    margin:5px;
+}
+.inside-td{
+    width:100px;
+    text-align:center;
+}
+
+.icon_max_width{
+    max_width:80px;
+    margin-left:80px;
+}
+
+.inside-td: hover{
+    width:105px;
+}
+
+.title{
+    text-align:center;
+}

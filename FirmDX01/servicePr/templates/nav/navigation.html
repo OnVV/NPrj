@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container" style="width:100%; background-color:#ffffff;">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/"><img src="{% static 'img/LogoFirmDX.jpg' %}" height="180px"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" style="margin-top:65px;">
+          <ul class="nav navbar-nav">
+            <li><a href="/"><strong>Home</strong></a></li>
+            <li><a href="{% url 'kontakt' %}"><strong>Kontakt</strong></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>mehr.. </strong><span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'aboutUs' %}">Über uns</a></li>
+                <li><a href="{% url 'kontakt' %}">Kundendienst</a></li>
+                <li><a href="{% url 'impressum' %}">Impressum</a></li>
+                <li><a href="{% url 'agb' %}">AGB</a></li>
+
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Mitglied werden:</li>
+                <li><a href="{% url 'firmaForm' %}">Firma eintragen</a></li>
+              </ul>
+            </li>
+          </ul>
+          <a href="{% url 'firmaForm' %}">
+            <button type="button" class="button" style="border-radius:5px; float:right; margin:5px; background-color:#8b9dc3; color:white; height:50px; border:none;"><strong>Firma eintragen</strong></button>
+          </a>
+        </div>
+      </div>
+    </nav>

@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<div class="container">
+        <br><br>
+        <ul style="float:right; list-style:none;">
+            <a href="#"><li  style="color:white" >Kontakt</li></a>
+            <a href="#"><li  style="color:white" >about us</li></a>
+            <br><br>
+            <a href="{% url 'firmaForm' %}s"><li><button class="button">Firma eintragen</button></li></a>
+        </ul>
+
+        <ul style="float:right; color:white; list-style:none; margin-right:30px;">
+            <a href="{% url 'umzug' %}"><li style="color:white" >Umzug</li></a>
+            <a href="{% url 'architekt' %}"> <li  style="color:white" >Architekt</li></a>
+            <a href="{% url 'baufirma' %}"><li  style="color:white" >Baufirma</li></a>
+            <a href="{% url 'catering' %}"><li  style="color:white" >Catering</li></a>
+            <a href="{% url 'gartenbau' %}"><li  style="color:white" >Gartenbau</li></a>
+            <a href="{% url 'immobilien' %}"><li  style="color:white" >Immobilien</li></a>
+            <a href="{% url 'maler' %}"><li  style="color:white" >Maler</li></a>
+            <a href="{% url 'reinigung' %}"><li  style="color:white" >Reinigung</li></a>
+            <a href="{% url 'sanitaer' %}"><li  style="color:white" >Sanitär</li></a>
+            <a href="{% url 'schreiner' %}"><li  style="color:white" >Schreiner</li></a>
+        </ul>
+        <div class="container hidden-xs" style="float:left; max-width:150px;">
+            <p style="color:white; max-width:100;">Service Provider GmbH</p>
+            <p style="color:white; max-width:100;">Teststrasse 55</p>
+            <p style="color:white; max-width:100;">8000 Zürich</p>
+            <p style="color:white; max-width:100;">Tel: 0041 00 00 00</p>
+            <p style="color:white; max-width:100;">Mail: service@provider.com</p>
+        </div>
+        <div  class="container hidden-xs">
+            <div style="max-width:350px; margin-right:auto; margin-left:auto;">
+                    <p class="hidden-xs" style="color:white" >Geben Sie ihre Postleitzahl ein.</p>
+                <div class="nav navbar-nav hidden-xs"  style="">
+                    <form action="" method="POST">{% csrf_token %}
+                        <input type="text" name="query" placeholder="8000" style="height:30px;">
+                        <input type="submit" class="btn" value="Suchen" />
+                        <br><br><br>
+                        <p style="color:white">Suchen Sie Firmen in Ihrer Region.<br> Erhalten Sie unverbindliche Offerten.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+
